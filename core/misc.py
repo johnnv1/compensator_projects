@@ -216,3 +216,33 @@ def plot_cavat(polesDominant, zero_cav, polo_cav, zero_cat, polo_cat):
     plt.legend(["Polo dominante +", "Polo dominante -", "Zero controlador avanço", "Polo controlador avanço", "Zero controlador atraso", "Polo controlador atraso"])
     plt.grid(color='black', linestyle='-', linewidth=0.5)
     plt.show()
+
+def get_kc_rf(e_esp, Kp_MA):
+    # Determinando ganho do compensador, Kc
+    Kv_min  = 1 / e_esp
+    Kp      = Kp_MA
+
+    Kc      = Kv_min / Kp
+
+    #print(f"Kc = {Kc}")
+    return Kc
+
+def get_a_av(phiMax, deg=True):
+    if deg:
+        return (1-np.sin(np.radians(phiMax))) / (1+np.sin(np.radians(phiMax)))
+    else:
+        return (1-np.sin(phiMax)) / (1+np.sin(phiMax))
+
+def get_Wm(Kc,a,mag_MA):
+    C_jwm = 20 * np.log10(Kc/np.sqrt(a))        # em Db
+
+    magDb = 20 * np.log10(mag_MA)
+    # % Lugar em que cruzar pela reta [-C_jwm -C_jwm] é referente a frequencia Wm
+    # % encontra o ponto de cruzamento
+    magDbLoc  = np.where(magDb >= -float((C_jwm)))[-1][-1]
+    Wm        = round(wout[magDbLoc], 4)
+    #print(f"C(jWm) = {C_jwm}")
+    #print(f"Wm = {Wm}")
+    return [C_jwm, Wm ]
+
+    
