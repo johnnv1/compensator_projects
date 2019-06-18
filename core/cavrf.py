@@ -3,6 +3,13 @@
 from misc import *
 
 def cavrf(e_esp, Kp_MA, G_MA, MFd, MFseg, mag_MA):
+    """
+        e_esp : erro esperado em regime permanente
+        Kp_MA : Ganho em Malha Aberta da planta
+        MFd   : Margem de Fase desejada
+        MFseg : Margem de Fase de segurança
+        mag_MA: resposta do bode (uma lista) das magnitudes da planta em Malha Aberta
+    """
     # Determina o ganho do controlador
     Kc              = get_kc_rf(e_esp, Kp_MA)
 

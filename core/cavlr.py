@@ -3,6 +3,14 @@
 from misc import *
 
 def cavlr(e_esp, Mp_esp, Mp_folga, ts_esp, polos_MA, Kp_MA):
+    """
+        e_esp       : erro esperado em regime permanente
+        Mp_esp      : Overshoot máximo esperado
+        Mp_folga    : Folga dada ao overshoot maximo esperado -> em casos de aproximações de plantas que não sejam de segunda ordem
+        ts_esp      : Tempo de pico / tempo de subida desejado
+        polos_MA    : Polos da planta em MA -> obitido pela função poles(G_MA)
+        Kp_MA       : Ganho em Malha Aberta da planta
+    """
     # Determinando as especificações do compensador
     #Kp, Kc          = get_kc_lr(e_esp, gaindc)
     psi             = get_psi(Mp_esp, Mp_folga)
