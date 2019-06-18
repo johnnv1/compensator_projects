@@ -2,7 +2,7 @@
 
 from misc import *
 
-def cavrf(e_esp, Kp_MA, G_MA, MFd, MFseg):
+def cavrf(e_esp, Kp_MA, G_MA, MFd, MFseg, mag_MA):
     # Determina o ganho do controlador
     Kc              = get_kc_rf(e_esp, Kp_MA)
 
@@ -19,6 +19,7 @@ def cavrf(e_esp, Kp_MA, G_MA, MFd, MFseg):
     [gm, pm, wcg, wcp]   = margin(Gma_Cav)             # Verificando a MF e MG do sistema, MF= margem de fase, MG = margem de ganho
     MFkc                 = pm;                         # margem de fase após o Kc
     phiMax               = MFd - MFkc + MFseg          # em graus
+
     print(f"φ_max = {phiMax}")
     print("*********************************************\n")
 
@@ -35,4 +36,25 @@ def cavrf(e_esp, Kp_MA, G_MA, MFd, MFseg):
     print(f"Wm = {Wm}")
     print("*********************************************\n")
 
+    
+    # Determinar do parametro T do compensador
+    T               = get_T(a, Wm)
+    print(f"T = {T}")
+    print("*********************************************\n")
+
+    
+    # Monta controlador com os parametros determinados"""
+    numC            = np.array([T, 1], dtype=float)
+    denC            = np.array([T*a, 1], dtype=float)
+    C               = tf(float(Kc)*numC, denC)           # Controlador m avanço
+    print(f"Controlador em avanço = Kc * (T*s+1)/(T*a*s+1) = ")
+    print(f"\t= {Kc} *  ({round(T,2)}*s+1)/({round(T,2)}*{round(a,2)}*s+1) = \t{C}")
+
+
+    # Plota os locais dos polos e zeros do controlador
+    plot_c(polesDominant, zero_c, polo_c)
+
+
+    # Retorna o controlador
+    return C
     

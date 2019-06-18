@@ -245,4 +245,6 @@ def get_Wm(Kc,a,mag_MA):
     #print(f"Wm = {Wm}")
     return [C_jwm, Wm ]
 
-    
+def get_T(a, Wm):
+    return 1 /(np.sqrt(a)*Wm)
+
