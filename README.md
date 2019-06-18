@@ -31,3 +31,4 @@ blablabla
     * Arquivo [catrf.py](./core/catrf.py) monta o controlador em atraso por resposta em frequencia
     * Arquivo [cavatrf.py](./core/catavrf.py) monta o controlador em avanço e atraso por resposta em frequencia
     * Arquivo [misc.py](./core/misc.py) possui uma miscelânea de funções utilizadas ao longo do projeto
+* Na pasta [MATLAB-code/](./MATLAB-code/) possui codigos matlabs que envolvem o trabalho
