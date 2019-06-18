@@ -2,13 +2,14 @@
 
 from misc import *
 
-def cavrf(e_esp, Kp_MA, G_MA, MFd, MFseg, mag_MA):
+def cavrf(e_esp, Kp_MA, G_MA, MFd, MFseg, mag_MA, wout_MA):
     """
-        e_esp : erro esperado em regime permanente
-        Kp_MA : Ganho em Malha Aberta da planta
-        MFd   : Margem de Fase desejada
-        MFseg : Margem de Fase de segurança
-        mag_MA: resposta do bode (uma lista) das magnitudes da planta em Malha Aberta
+        e_esp   : erro esperado em regime permanente
+        Kp_MA   : Ganho em Malha Aberta da planta
+        MFd     : Margem de Fase desejada
+        MFseg   : Margem de Fase de segurança
+        mag_MA  : resposta do bode (uma lista) das magnitudes da planta em Malha Aberta
+        wout_MA : resposta do bode (uma lista) das frequencias da planta em Malha Aberta
     """
     # Determina o ganho do controlador
     Kc              = get_kc_rf(e_esp, Kp_MA)
@@ -38,19 +39,19 @@ def cavrf(e_esp, Kp_MA, G_MA, MFd, MFseg, mag_MA):
 
     
     # Determinar a localização da resposnta em frequencia (RF) do compensador, Wm
-    C_jWm, Wm       = get_Wm(Kc,a,mag_MA)
+    C_jWm, Wm       = get_Wm(Kc,a,mag_MA, wout_MA)
     print(f"C(jWm) = {C_jWm}")
     print(f"Wm = {Wm}")
     print("*********************************************\n")
 
     
     # Determinar do parametro T do compensador
-    T               = get_T(a, Wm)
+    T               = get_T_av(a, Wm)
     print(f"T = {T}")
     print("*********************************************\n")
 
     
-    # Monta controlador com os parametros determinados"""
+    # Monta controlador com os parametros determinados
     numC            = np.array([T, 1], dtype=float)
     denC            = np.array([T*a, 1], dtype=float)
     C               = tf(float(Kc)*numC, denC)           # Controlador m avanço

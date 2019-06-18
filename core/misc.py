@@ -4,6 +4,9 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt           # Para realizar plotagens de funções
 from sympy import *                       # Para adicionar simbolos e resolver a equações
 
+
+# ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Funções para auxiliar na avaliação dos controladores
 def testControl(G_MA, C, step, ramp, t, dist_p, dist_n, stepInfoB = True):
     # Função para verificar comportamento do sistema com um controlador
     print("Malha Aberta")
@@ -101,6 +104,28 @@ def testControl(G_MA, C, step, ramp, t, dist_p, dist_n, stepInfoB = True):
     print("Rlocus de gmf")
     rlocusG_MF = rlocus(G_MF)
 
+def plot_c(polesDominant, zero_c, polo_c):
+    plt.scatter(polesDominant[0].real,polesDominant[0].imag, color='red')
+    plt.scatter(polesDominant[1].real,polesDominant[1].imag, color='red')
+    plt.scatter(-abs(zero_c).real,-abs(zero_c).imag, color='blue')
+    plt.scatter(-abs(polo_c).real,-abs(polo_c).imag, color='green', marker='X')
+    plt.legend(["Polo dominante +", "Polo dominante -", "Zero controlador", "Polo controlador"])
+    plt.grid(color='black', linestyle='-', linewidth=0.5)
+    plt.show()
+
+def plot_cavat(polesDominant, zero_cav, polo_cav, zero_cat, polo_cat):
+    plt.scatter(polesDominant[0].real,polesDominant[0].imag, color='red')
+    plt.scatter(polesDominant[1].real,polesDominant[1].imag, color='red')
+    plt.scatter(-abs(zero_cav).real,-abs(zero_cav).imag, color='blue')
+    plt.scatter(-abs(polo_cav).real,-abs(polo_cav).imag, color='green', marker='X')
+    plt.scatter(-abs(zero_cat).real,-abs(zero_cat).imag, color='black')
+    plt.scatter(-abs(polo_cat).real,-abs(polo_cat).imag, color='gray', marker='X')
+    plt.legend(["Polo dominante +", "Polo dominante -", "Zero controlador avanço", "Polo controlador avanço", "Zero controlador atraso", "Polo controlador atraso"])
+    plt.grid(color='black', linestyle='-', linewidth=0.5)
+    plt.show()
+
+# ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Funções para o controlador por lugar das raizes
 def get_kc_lr(e_esp, gaindc):
     # Determinando ganho do compensador, Kc
     Kp_s    = symbols('Kp_s')
@@ -197,26 +222,9 @@ def get_KcByCM(polesDominant, polos_MA, zero_c, polo_c, Kp_MA):
     #print(f"Kc  = {Kc}")
     return Kc
 
-def plot_c(polesDominant, zero_c, polo_c):
-    plt.scatter(polesDominant[0].real,polesDominant[0].imag, color='red')
-    plt.scatter(polesDominant[1].real,polesDominant[1].imag, color='red')
-    plt.scatter(-abs(zero_c).real,-abs(zero_c).imag, color='blue')
-    plt.scatter(-abs(polo_c).real,-abs(polo_c).imag, color='green', marker='X')
-    plt.legend(["Polo dominante +", "Polo dominante -", "Zero controlador", "Polo controlador"])
-    plt.grid(color='black', linestyle='-', linewidth=0.5)
-    plt.show()
 
-def plot_cavat(polesDominant, zero_cav, polo_cav, zero_cat, polo_cat):
-    plt.scatter(polesDominant[0].real,polesDominant[0].imag, color='red')
-    plt.scatter(polesDominant[1].real,polesDominant[1].imag, color='red')
-    plt.scatter(-abs(zero_cav).real,-abs(zero_cav).imag, color='blue')
-    plt.scatter(-abs(polo_cav).real,-abs(polo_cav).imag, color='green', marker='X')
-    plt.scatter(-abs(zero_cat).real,-abs(zero_cat).imag, color='black')
-    plt.scatter(-abs(polo_cat).real,-abs(polo_cat).imag, color='gray', marker='X')
-    plt.legend(["Polo dominante +", "Polo dominante -", "Zero controlador avanço", "Polo controlador avanço", "Zero controlador atraso", "Polo controlador atraso"])
-    plt.grid(color='black', linestyle='-', linewidth=0.5)
-    plt.show()
-
+# ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Funções para o controlador por resposta em frequencia
 def get_kc_rf(e_esp, Kp_MA):
     # Determinando ganho do compensador, Kc
     Kv_min  = 1 / e_esp
@@ -227,24 +235,43 @@ def get_kc_rf(e_esp, Kp_MA):
     #print(f"Kc = {Kc}")
     return Kc
 
+# ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Funções para o controlador em avanço por resposta em frequencia
 def get_a_av(phiMax, deg=True):
     if deg:
         return (1-np.sin(np.radians(phiMax))) / (1+np.sin(np.radians(phiMax)))
     else:
         return (1-np.sin(phiMax)) / (1+np.sin(phiMax))
 
-def get_Wm(Kc,a,mag_MA):
+def get_Wm(Kc,a,mag_MA, wout_MA):
     C_jwm = 20 * np.log10(Kc/np.sqrt(a))        # em Db
 
     magDb = 20 * np.log10(mag_MA)
     # % Lugar em que cruzar pela reta [-C_jwm -C_jwm] é referente a frequencia Wm
     # % encontra o ponto de cruzamento
     magDbLoc  = np.where(magDb >= -float((C_jwm)))[-1][-1]
-    Wm        = round(wout[magDbLoc], 4)
+    Wm        = wout_MA[magDbLoc]
     #print(f"C(jWm) = {C_jwm}")
     #print(f"Wm = {Wm}")
     return [C_jwm, Wm ]
 
-def get_T(a, Wm):
+def get_T_av(a, Wm):
     return 1 /(np.sqrt(a)*Wm)
 
+# ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Funções para o controlador em atraso por resposta em frequencia
+def get_Wcd(phase_MA, MFd, MFseg, wout_MA):
+    phaseLoc  = np.where(180+np.degrees(phase_MA) >= (MFseg+MFd))[-1][0] - 1  #primeiro seleciona o array (só retorna 1), depois seleciona qual item (0 ==first, -1 == last)
+    Wcd       = wout_MA[phaseLoc]
+    #print(f"C(jWm) = {C_jwm}")
+    #print(f"Wcd = {Wcd}")
+    return Wcd
+
+def get_a_at(mag_Cat, wout_MA, Wcd):
+    magDb_Cat                       = 20*np.log10(mag_Cat)
+    wLoc                            = np.where(wout_MA >= Wcd)[-1][-1]-1
+    KcG_WCD                         = magDb_Cat[wLoc]
+    return 10**(abs(KcG_WCD)/20)
+
+def get_T_at(Wcd):
+    return 10 /(Wcd)
