@@ -23,7 +23,7 @@ def cavrf(e_esp, Kp_MA, G_MA, MFd, MFseg, mag_MA, wout_MA):
     Gma_Cav              = G_MA*Cav
     bode(G_MA)
     bode(Gma_Cav)
-
+    
     [gm, pm, wcg, wcp]   = margin(Gma_Cav)             # Verificando a MF e MG do sistema, MF= margem de fase, MG = margem de ganho
     MFkc                 = pm;                         # margem de fase após o Kc
     phiMax               = MFd - MFkc + MFseg          # em graus

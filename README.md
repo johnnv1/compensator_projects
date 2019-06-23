@@ -20,6 +20,24 @@ Utilizando o pip do python3/*pip3* para instalar as bibliotecas utilizadas
 
 blablabla
 
+### Lista de abreviaturas
+| abreviatura       | Significado       |
+| -----             | -----             |
+| `MA`              | `Malha aberta`                |
+| `MF`              | `Malha fechada`                |
+| `cav`             | `Controlador em avanço`                |
+| `cat`             | `Controlador em atraso`                |
+| `lr`              | `lugar das raizes`                |
+| `rf`              | `resposta em frequencia`                |
+| `cavlr`           | `Controlador em avanço por lugar das raizes`                |
+| `catlr`           | `Controlador em atraso por lugar das raizes`                |
+| `cavatlr`         | `Controlador em avanço-atraso por lugar das raizes`                |
+| `cavrf`           | `Controlador em avanço por resposta em frequencia`                |
+| `catrf`           | `Controlador em atraso por resposta em frequencia`                |
+| `cavatrf`         | `Controlador em avanço-atraso por resposta em frequencia`                |
+
+
+
 ### Estruturas do projeto
 * No arquivo [makeControlOrd1.py](./makeControlOrd1.py) é desenvolvido os controladores realizados para a aproximação de **primeira** ordem da planta. 
 * No arquivo [makeControlOrd2.py](./makeControlOrd2.py) é desenvolvido os controladores realizados para a aproximação de **segunda** ordem da planta.
@@ -34,3 +52,4 @@ blablabla
     * Arquivo [misc.py](./core/misc.py) possui uma miscelânea de funções utilizadas ao longo do projeto
 * Na pasta [MATLAB-code/](./MATLAB-code/) possui codigos matlabs que envolvem o trabalho
 * Na pasta [leituras/](./leituras/) possui arquivos *csv* com os dados lidos pelo arduino e esses dados plotados nos arquivos *svg*
+* Na pasta [out/](./out/) possui arquivos referente aos controladores projetados

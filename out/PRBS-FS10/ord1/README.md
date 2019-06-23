@@ -1,7 +1,8 @@
 # Controles para a planta gerada com o PRBS (fs=10) de primeira ordem
 
+*******
 ## Planta (Controlador = 1)
-Gma= 2.096/(s + 1.663
+Gma= 2.096/(s + 1.663)
 
 
 Polos de G(s) -> [-1.663]\
@@ -34,6 +35,8 @@ ev(∞) = 88.18691011042336
 * ts_esp          = 0.4  
 * Mp_esp          = 50          
 * Mp_folga        = 5   
+
+
 ξ  = 0.25\
 Wn = 40.0000000000000	 rad/s\
 σ  = 10.0000000000000\
@@ -90,6 +93,8 @@ ev(∞) = 28.651913355705744
 * ts_esp          = 0.4  
 * Mp_esp          = 50          
 * Mp_folga        = 5   
+
+
 Kc = 7.14074427480916\
 Kp = 9.00000000000000\
 ξ  = 0.25\
