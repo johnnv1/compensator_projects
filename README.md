@@ -52,4 +52,4 @@ blablabla
     * Arquivo [misc.py](./core/misc.py) possui uma miscelânea de funções utilizadas ao longo do projeto
 * Na pasta [MATLAB-code/](./MATLAB-code/) possui codigos matlabs que envolvem o trabalho
 * Na pasta [leituras/](./leituras/) possui arquivos *csv* com os dados lidos pelo arduino e esses dados plotados nos arquivos *svg*
-* Na pasta [out/](./out/) possui arquivos referente aos controladores projetados
+* Na pasta [Controls/](./Controls/) possui arquivos referente aos controladores projetados
