@@ -31,7 +31,10 @@ Denominador     = np.array([1, 1.663], dtype=float)
 ts_esp          = 0.4                        # tempo de pico em segundos esperado
 Mp_esp          = 50                         # overshoot esperado em porcentagem
 Mp_folga        = 5                          # folga dada ao Mp, pq da aproximação de compensador para 2ª ordem
-e_esp           = 0.1                        # margem de fase de segurança, variavel
+e_esp           = 0.01                        # margem de fase de segurança, variavel
+
+MFd             = 50
+MFseg           = 5
 
 tau_MA          = 1/1.663
 tauMF_esp       = ts_esp/4                   # tau em MF
@@ -61,18 +64,27 @@ else:
 
 # Controladores
     # Controlador em avanço por lugar das raizes
-Cavlr   = cavlr(e_esp, Mp_esp, Mp_folga, ts_esp, polos_MA, Kp_MA)
-testControl(G_MA, Cavlr, step, ramp, t, dist_p, dist_n)
+#Cavlr   = cavlr(e_esp, Mp_esp, Mp_folga, ts_esp, polos_MA, Kp_MA)
+#testControl(G_MA, Cavlr, step, ramp, t, dist_p, dist_n)
 
     # Controlador em atraso por lugar das raizes
-Catlr   = catlr(e_esp, Mp_esp, Mp_folga, ts_esp, polos_MA, Kp_MA, gaindc_MA, pos_polo_c=0.02)
+#Catlr   = catlr(e_esp, Mp_esp, Mp_folga, ts_esp, polos_MA, Kp_MA, gaindc_MA, pos_polo_c=0.02)
 #testControl(G_MA, Catlr, step, ramp, t, dist_p, dist_n)
 
     # Controlador em avanço-atraso por lugar das raizes
-Cavatlr = cavatlr(e_esp, Mp_esp, Mp_folga, ts_esp, polos_MA, Kp_MA, gaindc_MA, pos_polo_c=0.02)
+#Cavatlr = cavatlr(e_esp, Mp_esp, Mp_folga, ts_esp, polos_MA, Kp_MA, gaindc_MA, pos_polo_c=0.02)
 #testControl(G_MA, Cavatlr, step, ramp, t, dist_p, dist_n, stepInfoB=False)
 
+    # Controlador em avanço por resposta em frequencia
+#Cavrf = cavrf(e_esp, Kp_MA, G_MA, MFd, MFseg, mag_MA, wout_MA)
+#testControl(G_MA, Cavrf, step, ramp, t, dist_p, dist_n)
 
+    # Controlador em atraso por resposta em frequencia
+Catrf = catrf(e_esp, Kp_MA, G_MA, MFd, MFseg, phase_MA, wout_MA)
+testControl(G_MA, Catrf, step, ramp, t, dist_p, dist_n)
+
+    # Controlador em avanço-atraso por resposta em frequencia
+    
 #----------------------------------------------------------------------------------------------------------------------------
 # Controle para a planta gerada com o PRBS (fs=500) de primeira ordem
     # G(z^-1) = (0.1203 * z^-1) /( 1 - 0.9086 * z^-1)

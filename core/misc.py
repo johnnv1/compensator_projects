@@ -36,8 +36,7 @@ def testControl(G_MA, C, step, ramp, t, dist_p, dist_n, stepInfoB = True):
     y_step = lsim(G_MF, step, t)
     y_ramp = lsim(G_MF, ramp, t)
 
-    plt.figure()    
-    plt.clf()                                            # create a plot figure
+    plt.figure()                                                # create a plot figure
     plt.subplot(2, 1, 1) # (rows, columns, panel number)
     plt.plot(t, step)
     plt.plot(t, y_step[0])
@@ -121,6 +120,7 @@ def testControl(G_MA, C, step, ramp, t, dist_p, dist_n, stepInfoB = True):
     rlocusG_MF = rlocus(G_MF)
 
 def plot_c(polesDominant, zero_c, polo_c):
+    plt.figure()
     plt.scatter(polesDominant[0].real,polesDominant[0].imag, color='red')
     plt.scatter(polesDominant[1].real,polesDominant[1].imag, color='red')
     plt.scatter(-abs(zero_c).real,-abs(zero_c).imag, color='blue')

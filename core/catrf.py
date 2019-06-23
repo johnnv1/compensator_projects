@@ -53,7 +53,7 @@ def catrf(e_esp, Kp_MA, G_MA, MFd, MFseg, phase_MA, wout_MA):
 
 
     # Plota os locais dos polos e zeros do controlador
-    plot_c(polesDominant, zero_c, polo_c)
+    #plot_c(polesDominant, zero_c, polo_c)
 
 
     # Retorna o controlador
