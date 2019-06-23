@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from misc import *
+from .misc import *
 
-def cavatlr(e_esp, Mp_esp, Mp_folga, ts_esp, polos_MA, Kp_MA, gaindc, pos_polo_c=0.02):
+def cavatlr(e_esp, Mp_esp, Mp_folga, ts_esp, polos_MA, Kp_MA, gaindc, pos_polo_c=0.02,zeroGain=1.2):
     """
         e_esp       : erro esperado em regime permanente
         Mp_esp      : Overshoot máximo esperado
@@ -12,6 +12,7 @@ def cavatlr(e_esp, Mp_esp, Mp_folga, ts_esp, polos_MA, Kp_MA, gaindc, pos_polo_c
         Kp_MA       : Ganho em Malha Aberta da planta
         gaindc      : Ganho da planta em MA quando s->0
         pos_polo_c  : Posição do polo do compensador desejado
+        zeroGain    : Ganho/aumento do valor do zero
     """
     # Determinando as especificações do compensador
     Kp, Kc          = get_kc_lr(e_esp, gaindc)
@@ -38,7 +39,7 @@ def cavatlr(e_esp, Mp_esp, Mp_folga, ts_esp, polos_MA, Kp_MA, gaindc, pos_polo_c
 
     # Determinando zero do compensador
     zero_c          = complex(-sigma, 0)
-    print(f"Zero controlador -> {zero_c}")
+    print(f"Zero controlador av -> {zero_c}")
     print("*********************************************\n")
 
 
@@ -53,7 +54,7 @@ def cavatlr(e_esp, Mp_esp, Mp_folga, ts_esp, polos_MA, Kp_MA, gaindc, pos_polo_c
 
         # Calculando a posição do polo do compensador
     polo_c          = complex(get_posPole(polesDominant, phiPolo_C, zero_c), 0)
-    print(f"Polo controlador -> {polo_c}")
+    print(f"Polo controlador av -> {polo_c}")
     print("*********************************************\n")
 
 
@@ -74,12 +75,12 @@ def cavatlr(e_esp, Mp_esp, Mp_folga, ts_esp, polos_MA, Kp_MA, gaindc, pos_polo_c
     
     # Determina o controlador em atraso
     # %Kp = lim {s * Kc * G(s) * (s+Z_c)/(s+P_c) * C_av} quando s tende a 0
-    # 13.07980 * 63.08/47.93 * 400/873.0042 * z/p> 99
-    # z/p > 99 / 7.887311938462735
-    # z/p > 12.551804
-    # p = pos_polo_c =0.02
-    # z > 0.25103608
-    Cat             = tf([1, abs(0.30)],[1, abs(pos_polo_c)])    
+    # z> Kp * p * polo_cav / zero_cav * 1/dcgain(G(s)) * 1/Kc
+    pos_zero_c      = complex(-abs(float( zeroGain * pos_polo_c * abs(polo_c) * Kp / ( gaindc * Kc * abs(zero_c) ) )), 0)
+    print(f"Polo controlador at -> {pos_polo_c}")
+    print(f"Zero controlador at -> {pos_zero_c}")
+    print("*********************************************\n")
+    Cat             = tf([1, abs(pos_zero_c)],[1, abs(pos_polo_c)])    
     print(f"Controle de atraso = Kc * (s+z)/(s+p) = ")
     print(f"\t= {Kc} *  (s+z)/(s+p) = \t{Kc}*{Cat}")
     print("*********************************************\n")
@@ -91,7 +92,11 @@ def cavatlr(e_esp, Mp_esp, Mp_folga, ts_esp, polos_MA, Kp_MA, gaindc, pos_polo_c
     print(f"\t= {Kc} * (s+zav)/(s+pav) * (s+zat)/(s+pat) = \t{C}")
     print("*********************************************\n")
 
+    # Plota os locais dos polos e zeros do controlador
     plot_cavat(polesDominant, zero_c, polo_c, complex(-0.30, 0), complex(-abs(pos_polo_c), 0))
+
+    # Retorna o controlador
+    return C
 
 #if __name__ == "__main__":
 #    Cavatlr         = cavatlr(e_esp=0.01, Mp_esp=10, Mp_folga=5, ts_esp=0.01, polos_MA=[-47.93], Kp_MA=63.08, gaindc=63.08/47.93)

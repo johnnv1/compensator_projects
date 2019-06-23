@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from misc import *
+from .misc import *
 
 def cavrf(e_esp, Kp_MA, G_MA, MFd, MFseg, mag_MA, wout_MA):
     """

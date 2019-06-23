@@ -35,12 +35,14 @@ def testControl(G_MA, C, step, ramp, t, dist_p, dist_n, stepInfoB = True):
     # resposta perante a entrada e root locus da planta
     y_step = lsim(G_MF, step, t)
     y_ramp = lsim(G_MF, ramp, t)
-    plt.figure()                                                # create a plot figure
-    plt.subplot(2, 2, 1) # (rows, columns, panel number)
+
+    plt.figure()    
+    plt.clf()                                            # create a plot figure
+    plt.subplot(2, 1, 1) # (rows, columns, panel number)
     plt.plot(t, step)
     plt.plot(t, y_step[0])
     plt.legend(["R", "Gmf"])
-    plt.subplot(2, 2, 2)
+    plt.subplot(2, 1, 2)
     plt.plot(t, ramp)
     plt.plot(t, y_ramp[0])
     plt.legend(["R", "Gmf"])
@@ -49,7 +51,9 @@ def testControl(G_MA, C, step, ramp, t, dist_p, dist_n, stepInfoB = True):
 
     print("*********************************************")
     ymf_step2    = lsim(G_MF, dist_p, t);
+
     plt.figure()
+    plt.clf()
     plt.plot(t, dist_p)
     plt.plot(t, ymf_step2[0])
     plt.legend(["R", "Gmf"])
@@ -66,30 +70,42 @@ def testControl(G_MA, C, step, ramp, t, dist_p, dist_n, stepInfoB = True):
     ymf_step    = lsim(G_MF, step, t);
     yd1_dist    = lsim(Gd1, dist_p, t);
     yd2_dist    = lsim(Gd2, dist_n, t);
-    y_step      = ymf_step[0]+yd1_dist[0]+yd2_dist[0]
+    yr_step      = ymf_step[0]+yd1_dist[0]+yd2_dist[0]
 
 
     # ----- calculo do erro
     yr = step
-    er = yr-y_step
+    er = yr-yr_step
 
-    #   u = lsim(C, er, t)
+    u = lsim(C, er, t)
     print("*********************************************")
+    plt.figure()
+    plt.clf()
+    plt.subplot(4, 1, 1)
     plt.plot(t, step)
     plt.plot(t, dist_p)
     plt.plot(t, dist_n)
-    plt.plot(t, y_step)
+    plt.plot(t, yr_step)
     plt.legend(["R","dist_p", "dist_n", "Gmf"])
     plt.ylabel("Amplitude")
-    plt.show()
+    #plt.show()
+
+    #plt.figure()
+    plt.subplot(4, 1, 2)
     plt.plot(t, er)
     plt.legend("e")
     plt.ylabel("Erro")
-    plt.show()
-    #   plt.plot(t, u[0])
-    #   plt.legend("u")
-    #   plt.ylabel("Controle")
-    #   plt.show()
+    #plt.show()
+
+    #plt.figure()
+    plt.subplot(4, 1, 3)
+    plt.plot(t, u[0])
+    plt.legend("u")
+    plt.ylabel("Controle")
+    #plt.show()
+
+    #plt.figure()
+    plt.subplot(4, 1, 4)
     plt.plot(t, dist_p)
     plt.plot(t, dist_n)
     plt.legend(["dist_p", "dist_n"])
@@ -98,7 +114,7 @@ def testControl(G_MA, C, step, ramp, t, dist_p, dist_n, stepInfoB = True):
     print("*********************************************")
     ev_MF         = ramp[-1] - y_ramp[0][-1]     #erro apos ser adicionado o controlador ao
     print(f"ev(∞) = {ev_MF}")
-    ep_MF         = step[-1] - y_ramp[0][-1]     #erro apos ser adicionado o controlador ao
+    ep_MF         = step[-1] - y_step[0][-1]     #erro apos ser adicionado o controlador ao
     print(f"ep(∞) = {ep_MF}")
     print("*********************************************")
     print("Rlocus de gmf")

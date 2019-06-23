@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from misc import *
+from .misc import *
 
 def catlr(e_esp, Mp_esp, Mp_folga, ts_esp, polos_MA, Kp_MA, gaindc, pos_polo_c=-0.01):
     """

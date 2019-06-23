@@ -23,6 +23,7 @@ blablabla
 ### Estruturas do projeto
 * No arquivo [makeControlOrd1.py](./makeControlOrd1.py) é desenvolvido os controladores realizados para a aproximação de **primeira** ordem da planta. 
 * No arquivo [makeControlOrd2.py](./makeControlOrd2.py) é desenvolvido os controladores realizados para a aproximação de **segunda** ordem da planta.
+* No arquivo [Trabalho_final_sistemas_de_controle.ipynb](./Trabalho_final_sistemas_de_controle.ipynb) foi realizado um jupyter notebook como rascunho deste projeto desenvolvido.
 * Na pasta [core/](./core/) encontra-se os arquivos com as funções utilizadas ao longo do trabalho
     * Arquivo [cavlr.py](./core/cavlr.py) monta o controlador em avanço por lugares das raizes
     * Arquivo [catlr.py](./core/catlr.py) monta o controlador em atraso por lugares das raizes

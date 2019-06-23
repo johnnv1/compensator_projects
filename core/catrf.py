@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from misc import *
+from .misc import *
 
 def catrf(e_esp, Kp_MA, G_MA, MFd, MFseg, phase_MA, wout_MA):
     """
