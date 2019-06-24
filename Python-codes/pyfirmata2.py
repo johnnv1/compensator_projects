@@ -100,3 +100,5 @@ print("tempo:",end-ini)
 print("frequencia real:",len(sinal)/(end-ini))
 # print("media:",np.mean(resposta))
 board.exit()
+
+# teste
