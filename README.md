@@ -12,11 +12,15 @@ O trabalho foi desenvolvido pelos alunos e avaliado pelo professor indicado na t
 | Professor         | Co-autor               | `Rodrigo Iván Goytia Mejia`      | `rodrigo-mejia@uergs.edu.br`      |
 
 ## Informações
-Este trabalho consiste em realizar o
+Este trabalho consiste em realizar os projetos de controladores de avanço e atraso para uma planta motor-taco gerador. As conexões entre os partes do projeto pode ser visto abaixo.
+![Diagrama macro das conexões do projeto](./imagens/DiagramaMacroConexoes.png)
 
 ## Instalação
+Para realizar o download dos arquivos do projeto pode ser possivel utilizando o git com o seguinte comando:
+> git clone https://github.com/johnnv1/compensator_projects.git
+
 Utilizando o pip do python3/*pip3* para instalar as bibliotecas utilizadas para utilização do python para realizar os projetos.
-> pip install -r requeriments.txt
+> pip install -r Python-codes/requeriments.txt
 
 Para utilizar o arduino de maneira direta pelo python, como por exemplo escrever e ler diretamente os seus pinos é nescessario gravar um código/sketchbook em sua memória antes da utilização dos códigos python. O sketchbook utilizado é o [StandardFirmata](https://www.arduino.cc/en/Reference/Firmata) que é o responsavel por realizar o protocolo de comunicação entre o computador e o arduino. Seu código pode ser encontrado na pasta [Arduino-codes/StandardFirmata/](./Arduino-codes/StandardFirmata/) normalmente ele se encontra também nos exemplos do [Arduino IDE](https://www.arduino.cc/en/Main/Software), podendo ser acessado da seguinte maneira dentro da IDE:
 > Arquivo -> Exemplos -> Firmata -> StandardFirmata
@@ -61,5 +65,5 @@ blablabla
     * Arquivo [cavatrf.py](./core/catavrf.py) monta o controlador em avanço e atraso por resposta em frequencia
     * Arquivo [misc.py](./core/misc.py) possui uma miscelânea de funções utilizadas ao longo do projeto
 * Na pasta [MATLAB-codes/](./MATLAB-codes/) possui codigos matlabs que envolvem o trabalho
-* Na pasta [leituras/](./leituras/) possui arquivos *csv* com os dados lidos pelo arduino e esses dados plotados nos arquivos *svg*
-* Na pasta [Controls/](./Controls/) possui arquivos referente aos controladores projetados
+* Na pasta [Dados-de-leitura/](./Dados-de-leitura/) possui arquivos *csv* com os dados lidos pelo arduino e esses dados plotados nos arquivos *svg*
+* Na pasta [Controles/](./Controles/) possui arquivos referente aos controladores projetados
