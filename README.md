@@ -13,7 +13,25 @@ O trabalho foi desenvolvido pelos alunos e avaliado pelo professor indicado na t
 
 ## Informações
 Este trabalho consiste em realizar os projetos de controladores de avanço e atraso para uma planta motor-taco gerador. As conexões entre os partes do projeto pode ser visto abaixo.
-![Diagrama macro das conexões do projeto](./imagens/DiagramaMacroConexoes.png)
+<p align="center">
+  <img width="80%" src="./imagens/DiagramaMacroConexoes.png">
+</p>
+
+O sistema funciona da seguinte maneira:
+
+1. Computador envia sinal de escrita ao pino PWM configurado (D9), um valor entre 0 e 1.
+2. O arduino escreve o PWM entre 0 e 5V.
+3. A placa condionadora recebe o sinal do PWM e amplica para o sinal ficar entre 0 e 12V para ser enviado ao motor.
+4. Motor DC recebe a tensão condionada e gira o motor, fazendo que a correia entre o motor e o taco comece a girar.
+5. O taco gera energia entre 0 e 12V atraves da rotação que lhe é concedida pela correia.
+6. A tensão gerada pelo taco é enviada a placa condionada onde é reamostrada para ficar entre 0 e 5V, através de ajustes de zero e span.
+7. O computador envia um sinal para o arduino ler através de um pino (A1) a tensão condicionada do taco.
+
+Com estas conexões realizadas é possivel aplicar uma malha de controle no loop do código que realiza a leitura e escrita dos dados do arduino. Mas primeiro é importante mostrar o por que seria nescessario uma malha de controle. Isto pode ser visto analizando a figura abaixo
+
+<p align="center">
+  <img width="100%" src="./imagens/ExComportamento.svg">
+</p>
 
 ## Instalação
 Para realizar o download dos arquivos do projeto pode ser possivel utilizando o git com o seguinte comando:
