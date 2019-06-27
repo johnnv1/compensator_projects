@@ -11,9 +11,17 @@ O trabalho foi desenvolvido pelos alunos e avaliado pelo professor indicado na t
 | Aluno             | Autor                  | `Lucas Silva Ennes`              | `lucassilvaennes@gmail.com`       |
 | Professor         | Co-autor               | `Rodrigo Iván Goytia Mejia`      | `rodrigo-mejia@uergs.edu.br`      |
 
+## Informações
+Este trabalho consiste em realizar o
+
 ## Instalação
-Utilizando o pip do python3/*pip3* para instalar as bibliotecas utilizadas
+Utilizando o pip do python3/*pip3* para instalar as bibliotecas utilizadas para utilização do python para realizar os projetos.
 > pip install -r requeriments.txt
+
+Para utilizar o arduino de maneira direta pelo python, como por exemplo escrever e ler diretamente os seus pinos é nescessario gravar um código/sketchbook em sua memória antes da utilização dos códigos python. O sketchbook utilizado é o [StandardFirmata](https://www.arduino.cc/en/Reference/Firmata) que é o responsavel por realizar o protocolo de comunicação entre o computador e o arduino. Seu código pode ser encontrado na pasta [Arduino-codes/StandardFirmata/](./Arduino-codes/StandardFirmata/) normalmente ele se encontra também nos exemplos do [Arduino IDE](https://www.arduino.cc/en/Main/Software), podendo ser acessado da seguinte maneira dentro da IDE:
+> Arquivo -> Exemplos -> Firmata -> StandardFirmata
+
+Após carregar o arquivo do StandardFirmata no arduino IDE basta compilalo e envia-lo para o arduino. Obs.: não é nescessario que este procedimento seja feito pelo arduino IDE, porém é o caminho mais facil a usuarios de menor conhecimento.
 
 ## Documentação
 
@@ -39,10 +47,12 @@ blablabla
 
 
 ### Estruturas do projeto
-* No arquivo [makeControlOrd1.py](./makeControlOrd1.py) é desenvolvido os controladores realizados para a aproximação de **primeira** ordem da planta. 
-* No arquivo [makeControlOrd2.py](./makeControlOrd2.py) é desenvolvido os controladores realizados para a aproximação de **segunda** ordem da planta.
-* No arquivo [Trabalho_final_sistemas_de_controle.ipynb](./Trabalho_final_sistemas_de_controle.ipynb) foi realizado um jupyter notebook como rascunho deste projeto desenvolvido.
-* Na pasta [core/](./core/) encontra-se os arquivos com as funções utilizadas ao longo do trabalho
+
+* Na pasta [Python-codes/](./Python-codes/) possui os códigos escritos em python baseados nos exercicios realizados em MATLAB durante as aulas. Estes códigos em python foram também uma tentativa de escrita de projetos de controladores o mais automatizado possivel. E foram utilizados para obter os controladores finais deste trabalho.
+  * No arquivo [Trabalho_final_sistemas_de_controle.ipynb](./Trabalho_final_sistemas_de_controle.ipynb) foi realizado um jupyter notebook como rascunho deste projeto desenvolvido.
+  * No arquivo [makeControlOrd1.py](./makeControlOrd1.py) é desenvolvido os controladores realizados para a aproximação de **primeira** ordem da planta. 
+  * No arquivo [makeControlOrd2.py](./makeControlOrd2.py) é desenvolvido os controladores realizados para a aproximação de **segunda** ordem da planta.
+  * Na pasta [core/](./core/) encontra-se os arquivos com as funções utilizadas ao longo do trabalho
     * Arquivo [cavlr.py](./core/cavlr.py) monta o controlador em avanço por lugares das raizes
     * Arquivo [catlr.py](./core/catlr.py) monta o controlador em atraso por lugares das raizes
     * Arquivo [cavatlr.py](./core/catavlr.py) monta o controlador em avanço e atraso por lugares das raizes
@@ -50,6 +60,6 @@ blablabla
     * Arquivo [catrf.py](./core/catrf.py) monta o controlador em atraso por resposta em frequencia
     * Arquivo [cavatrf.py](./core/catavrf.py) monta o controlador em avanço e atraso por resposta em frequencia
     * Arquivo [misc.py](./core/misc.py) possui uma miscelânea de funções utilizadas ao longo do projeto
-* Na pasta [MATLAB-code/](./MATLAB-code/) possui codigos matlabs que envolvem o trabalho
+* Na pasta [MATLAB-codes/](./MATLAB-codes/) possui codigos matlabs que envolvem o trabalho
 * Na pasta [leituras/](./leituras/) possui arquivos *csv* com os dados lidos pelo arduino e esses dados plotados nos arquivos *svg*
 * Na pasta [Controls/](./Controls/) possui arquivos referente aos controladores projetados
