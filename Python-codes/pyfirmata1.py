@@ -89,21 +89,24 @@ print("frequencia real:",len(sinal)/(end-ini))
 # print("media:",np.mean(resposta))
 board.exit()
 # plota os gráfico
-plt.figure(figsize=sizeImage, dpi=dpiImage)
-plt.subplot(2, 1, 1)
-plt.plot(x,sinal, linewidth=4)
-plt.ylim(-0.5,5.5)
-plt.ylabel('Voltagem (V)', fontsize=18)
-plt.title('Dados escritos (PWM)', fontsize=22)
-plt.grid(color='r')
 
-plt.subplot(2, 1, 2)
-plt.plot(x,resposta, '--', linewidth=4)
+#plt.figure(figsize=sizeImage, dpi=dpiImage)
+fig, axs = plt.subplots(2, sharex=True, figsize=sizeImage, dpi=dpiImage)
+axs[0].plot(x,sinal, linewidth=4)
 plt.ylim(-0.5,5.5)
-plt.xlabel('Amostras', fontsize=18)
-plt.ylabel('Voltagem (V)', fontsize=18)
-plt.grid(color='r')
+axs[0].set_title('Dados escritos (PWM)')
+axs[0].grid(color='r')
 
+axs[1].plot(x,resposta, linewidth=4)
+plt.ylim(-0.5,5.5)
+axs[1].set_title('Dados Lidos')
+axs[1].grid(color='r')
+
+for ax in axs.flat:
+    ax.set(xlabel='Amostras', ylabel='Voltagem (V)')
+
+for ax in axs.flat:
+    ax.label_outer()
 plt.savefig(srcImage, format=formatImage)
 #plt.show()
 
