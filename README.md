@@ -33,6 +33,31 @@ Com estas conexões realizadas é possivel aplicar uma malha de controle no loop
   <img width="100%" src="./imagens/ExComportamento.svg">
 </p>
 
+O grafico superior é referente a entrada aplicada ao motor, escrita pelo PWM e o inferior é os valores lidos gerados pelo taco. Percebe-se que a planta possui dificuldade em seguir a referencia de entrada, e analizando os valores obtidos pode perceber que não é apenas um comportamento por erro de de incremento de sinal. Analizando mais precisamente a saida com a referencia em 4V (entre as amostras 0 e 100) nossa planta nos gera uma saída de menos de 4V, já olhando para a referencia em 2V (amostras entre 400 e 500) percebe-se que a planta possui está retornando um valor superior a 2V cerca de 2.5V.
+
+Visto que o funcionamento da planta nescessitaria de um compensador, podemos modelar nosso sistema da seguinte forma:
+<p align="center">
+  <img width="70%" src="./imagens/PlantaDeControle.png">
+</p>
+
+Sendo que a resposta vista anteriormente consistem em $C(Z^{-1} = 1)$. Então **o objetivo** deste trabalho é encontrar modelos de $C(z^{-1})$ que realizem o controle do sinal de maneira que controle nossa planta $G(z^{-1})$, lembrando que nossa Planta $G(z^{-1})$ é referente ao sistema motor-taco montado e mostrado anteriormente. Podemos demostrar deste modelo determinado:
+
+* $e(k) = y_r(k) - y(k)$, ou seja o erro atual do nosso modelo,  sendo k referente ao numero de amostra
+* $C(z^{-1}) = \frac{u}{e}$
+  * Se considerarmos que nosso controlador será de primeira ordem podemos dizer então que:
+    *  $C(z^{-1}) = \frac{u(k)}{e(k)} = \frac{b_0+b_1*z^{-1}}{1+a_1*z^{-1}}$
+       * logo pode-se dizer que $u(k) = b_0 * e(k) + b_1 * e(k-1)-a_1*u(k-1)$ sendo k referente ao numero de amostra
+  * Se considerarmos que nosso controlador será de segunda ordem podemos dizer então que:
+    *  $C(z^{-1}) = \frac{u(k)}{e(k)} = \frac{b_0 + b_1 * z^{-1} + b_2* z^{-2}}{1 + a_1 * z^{-1} + a_2 * z^{-2}}$
+       * logo pode-se dizer que $u(k) = b_0 * e(k) + b_1 * e(k-1) + b_2 * e(k-2) - a_1 * u(k-1) - a_2 * u(k-2)$ sendo k referente ao numero de amostra
+* O valor de y(k) será gerado pelo taco e lido pelo arduino, é o valor mostrado no grafico inferior da figura 2.
+  * O valor de u(k) utilizado para gerar é o valor mostrado no grafico superior da figura 2.
+
+Ao longo deste trabalho então será projetado controladores em avanço, atraso, avanço-atraso por lugar das raizes e por resposta em frequencia. Ou seja, determinar os melhores valores de $b_n$ e $a_n$ de forma que corrija o erro visto na figura 2.
+
+Para implementação e teste dos controladores elaborados, $y_r(k)$ será algo similar ao valor de u(k) utilizado na figura 2. Então os valores de $u(k)$ serão calculados conforme o controlador implementado.
+
+Os controles elaborados podem ser vistos em [Controles/](./Controles/) onde possui os dados da elaboração do mesmo, assim como os resultados em simulação e testando na planta real.
 ## Instalação
 Para realizar o download dos arquivos do projeto pode ser possivel utilizando o git com o seguinte comando:
 > git clone https://github.com/johnnv1/compensator_projects.git

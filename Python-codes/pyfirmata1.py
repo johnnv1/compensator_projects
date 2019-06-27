@@ -97,7 +97,7 @@ plt.ylim(-0.5,5.5)
 axs[0].set_title('Dados escritos (PWM)')
 axs[0].grid(color='r')
 
-axs[1].plot(x,resposta, linewidth=4)
+axs[1].plot(x,resposta,'--', linewidth=4)
 plt.ylim(-0.5,5.5)
 axs[1].set_title('Dados Lidos')
 axs[1].grid(color='r')
