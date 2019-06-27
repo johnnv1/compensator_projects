@@ -45,10 +45,10 @@ Sendo que a resposta vista anteriormente consistem em $C(Z^{-1} = 1)$. Então **
 * $e(k) = y_r(k) - y(k)$, ou seja o erro atual do nosso modelo,  sendo k referente ao numero de amostra
 * $C(z^{-1}) = \frac{u}{e}$
   * Se considerarmos que nosso controlador será de primeira ordem podemos dizer então que:
-    *  $C(z^{-1}) = \frac{u(k)}{e(k)} = \frac{b_0+b_1*z^{-1}}{1+a_1*z^{-1}}$
-       * logo pode-se dizer que $u(k) = b_0 * e(k) + b_1 * e(k-1)-a_1*u(k-1)$ sendo k referente ao numero de amostra
+    *  $C(z^{-1}) = \frac{u(k)}{e(k)} = \frac{b_0+b_1 * z^{-1}}{1+a_1 * z^{-1}}$
+       * logo pode-se dizer que $u(k) = b_0 * e(k) + b_1 * e(k-1)-a_1 * u(k-1)$ sendo k referente ao numero de amostra
   * Se considerarmos que nosso controlador será de segunda ordem podemos dizer então que:
-    *  $C(z^{-1}) = \frac{u(k)}{e(k)} = \frac{b_0 + b_1 * z^{-1} + b_2* z^{-2}}{1 + a_1 * z^{-1} + a_2 * z^{-2}}$
+    *  $C(z^{-1}) = \frac{u(k)}{e(k)} = \frac{b_0 + b_1 * z^{-1} + b_2 *  z^{-2}}{1 + a_1 * z^{-1} + a_2 * z^{-2}}$
        * logo pode-se dizer que $u(k) = b_0 * e(k) + b_1 * e(k-1) + b_2 * e(k-2) - a_1 * u(k-1) - a_2 * u(k-2)$ sendo k referente ao numero de amostra
 * O valor de y(k) será gerado pelo taco e lido pelo arduino, é o valor mostrado no grafico inferior da figura 2.
   * O valor de u(k) utilizado para gerar é o valor mostrado no grafico superior da figura 2.
