@@ -14,23 +14,34 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import style
 
-# for live plotting
-style.use('fivethirtyeight')
-fig = plt.figure()
-ax1 = fig.add_subplot(1,2,1)
-ax2 = fig.add_subplot(1,2,2)
-
+#-------------------------------#-------------------------------#-------------------------------#-------------------------------
 ### INICIO MUDANÇAS PERMITIDAS ###
-# vetor de entrada (V)
-sinal = 4*np.ones(50)
-sinal = np.append(sinal,0*np.ones(50))
-sinal = np.append(sinal,5*np.ones(1000))
-sinal = np.append(sinal,1*np.ones(50))
-sinal = np.append(sinal,2*np.ones(50))
-# frequência de amostragem
-freq = 50
-### FIM MUDANÇAS PERMITIDAS ###
 
+#-------------------------------
+# dados para salvar imagem
+dpiImage = 100
+srcImage = '../Dados-de-leitura/ExComportamento.svg'
+formatImage = "svg"
+sizeImage = (1920/dpiImage,1080/dpiImage)
+
+
+#-------------------------------
+# vetor de entrada (V)
+sinal = 4*np.ones(100)
+sinal = np.append(sinal,0*np.ones(100))
+sinal = np.append(sinal,5*np.ones(100))
+sinal = np.append(sinal,1*np.ones(100))
+sinal = np.append(sinal,2*np.ones(100))
+
+
+#-------------------------------
+# frequência de amostragem
+freq = 10
+
+
+
+### FIM MUDANÇAS PERMITIDAS ###
+#-------------------------------#-------------------------------#-------------------------------#-------------------------------
 x = [i for i,a in enumerate(sinal)]
 
 print("Tempo total para executar as medições:",len(sinal)/freq)
@@ -77,7 +88,22 @@ print("tempo:",end-ini)
 print("frequencia real:",len(sinal)/(end-ini))
 # print("media:",np.mean(resposta))
 board.exit()
-# plota os gráficos
-ax1.plot(x,sinal)
-ax2.plot(x,resposta)
-plt.show()
+# plota os gráfico
+plt.figure(figsize=sizeImage, dpi=dpiImage)
+plt.subplot(2, 1, 1)
+plt.plot(x,sinal, linewidth=4)
+plt.ylim(-0.5,5.5)
+plt.ylabel('Voltagem (V)', fontsize=18)
+plt.title('Dados escritos (PWM)', fontsize=22)
+plt.grid(color='r')
+
+plt.subplot(2, 1, 2)
+plt.plot(x,resposta, '--', linewidth=4)
+plt.ylim(-0.5,5.5)
+plt.xlabel('Amostras', fontsize=18)
+plt.ylabel('Voltagem (V)', fontsize=18)
+plt.grid(color='r')
+
+plt.savefig(srcImage, format=formatImage)
+#plt.show()
+
