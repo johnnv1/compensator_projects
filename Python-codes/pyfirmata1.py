@@ -24,7 +24,7 @@ ax2 = fig.add_subplot(1,2,2)
 # vetor de entrada (V)
 sinal = 4*np.ones(50)
 sinal = np.append(sinal,0*np.ones(50))
-sinal = np.append(sinal,5*np.ones(50))
+sinal = np.append(sinal,5*np.ones(1000))
 sinal = np.append(sinal,1*np.ones(50))
 sinal = np.append(sinal,2*np.ones(50))
 # frequência de amostragem
@@ -36,8 +36,8 @@ x = [i for i,a in enumerate(sinal)]
 print("Tempo total para executar as medições:",len(sinal)/freq)
 
 # configuration
-board = pyfirmata.Arduino('COM8')
-entrada = board.get_pin('d:3:p')
+board = pyfirmata.Arduino('/dev/ttyACM0')
+entrada = board.get_pin('d:9:p')
 saida = board.get_pin('a:0:i')
 it = pyfirmata.util.Iterator(board)
 it.start()
@@ -69,6 +69,7 @@ for i in range(len(sinal)):
     f.write(str(sinal[i])+','+str(resposta[i])+'\n')
   # gera delay para esperar pelo período de amostragem
   time.sleep(1/freq-0.001)
+entrada.write(0)
 # registra o tempo de término
 end = time.time()
 # printa informações
