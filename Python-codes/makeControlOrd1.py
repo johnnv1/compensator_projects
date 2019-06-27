@@ -28,8 +28,8 @@ Kp_MA           = 2.096
 Numerador       = Kp_MA
 Denominador     = np.array([1, 1.663], dtype=float)
 
-ts_esp          = 0.4                        # tempo de pico em segundos esperado
-Mp_esp          = 50                         # overshoot esperado em porcentagem
+ts_esp          = 3                        # tempo de estabelecimento
+Mp_esp          = 10                         # overshoot esperado em porcentagem
 Mp_folga        = 5                          # folga dada ao Mp, pq da aproximação de compensador para 2ª ordem
 e_esp           = 0.01                        # margem de fase de segurança, variavel
 
@@ -68,8 +68,8 @@ else:
 #testControl(G_MA, Cavlr, step, ramp, t, dist_p, dist_n)
 
     # Controlador em atraso por lugar das raizes
-#Catlr   = catlr(e_esp, Mp_esp, Mp_folga, ts_esp, polos_MA, Kp_MA, gaindc_MA, pos_polo_c=0.02)
-#testControl(G_MA, Catlr, step, ramp, t, dist_p, dist_n)
+Catlr   = catlr(e_esp, Mp_esp, Mp_folga, ts_esp, polos_MA, Kp_MA, gaindc_MA, pos_polo_c=0.03)
+testControl(G_MA, Catlr, step, ramp, t, dist_p, dist_n)
 
     # Controlador em avanço-atraso por lugar das raizes
 #Cavatlr = cavatlr(e_esp, Mp_esp, Mp_folga, ts_esp, polos_MA, Kp_MA, gaindc_MA, pos_polo_c=0.02)
@@ -80,8 +80,8 @@ else:
 #testControl(G_MA, Cavrf, step, ramp, t, dist_p, dist_n)
 
     # Controlador em atraso por resposta em frequencia
-Catrf = catrf(e_esp, Kp_MA, G_MA, MFd, MFseg, phase_MA, wout_MA)
-testControl(G_MA, Catrf, step, ramp, t, dist_p, dist_n)
+#Catrf = catrf(e_esp, Kp_MA, G_MA, MFd, MFseg, phase_MA, wout_MA)
+#testControl(G_MA, Catrf, step, ramp, t, dist_p, dist_n)
 
     # Controlador em avanço-atraso por resposta em frequencia
     
