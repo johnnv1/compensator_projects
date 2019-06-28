@@ -20,6 +20,11 @@ import pandas as pd
 #-------------------------------#-------------------------------#-------------------------------#-------------------------------
 ### INICIO MUDANÇAS PERMITIDAS ###
 #-------------------------------
+# Controlador desejado
+controlUse      = "sc"                                                  # Sem controlador
+#controlUse       = "cavlr1"                                             #Cavlr 1ª ord    **********  Controlador em avanço por lugar das raizes para modelo de primeira ordem
+
+#-------------------------------
 # Configuração do arduino
 """
     x:n:t -> ordem de configuração dos pinos sendo:
@@ -36,7 +41,7 @@ inPin           = 'a:0:i'                                               # Pino u
 #-------------------------------
 # dados para salvar imagem
 dpiImage        = 100                                                   # Dpi da imagem
-srcImage        = './../../Controles/PRBS-FS10/ord1/real/graph-cavlr.svg'    # Endereço e nome da imagem a ser salva, se setar como None não salva
+srcImage        = './../../Controles/PRBS-FS10/ord1/real/graph-'+controlUse+'.svg'    # Endereço e nome da imagem a ser salva, se setar como None não salva
 #srcImage        = None
 formatImage     = "svg"                                                 # Tipo de imagem a ser salva
 width           = 1920                                                  # Largura em px (pixels) da imagem salva
@@ -44,12 +49,12 @@ height          = 1080                                                  # Altura
 
 #-------------------------------
 # dados para salvar csv dos dados
-srcFile             = './../../Controles/PRBS-FS10/ord1/real/data-cavlr.csv'# Endereço e nome do csv a ser salva, se setar como None não salva
+srcFile             = './../../Controles/PRBS-FS10/ord1/real/data-'+controlUse+'.csv'# Endereço e nome do csv a ser salva, se setar como None não salva
 #srcFile             # None
 
 #-------------------------------
 # frequência de amostragem
-freq            = 100                                                    # Em amostras por seg (Hz)
+freq            = 10                                                    # Em amostras por seg (Hz)
 
 #-------------------------------
 # Numero total de amostras
@@ -80,58 +85,64 @@ erroAcc         = 1.15                                                  # quanta
 
 #-------------------------------
 # coeficientes dos controladores
-#*******    Cavlr 1ª ord    **********  Controlador em avanço por lugar das raizes para modelo de primeira ordem
-controlName = "Controlador avanço - LR"
-b0 = 0
-b1 = 0
-b2 = 0
+if controlUse == "sc":
+    controlName = "Sem controlador"
+elif controlUse == "cavlr1":
+    #*******    Cavlr 1ª ord    **********  Controlador em avanço por lugar das raizes para modelo de primeira ordem
+    controlName = "Controlador avanço - LR"
+    b0 = 0
+    b1 = 0
+    b2 = 0
 
-a1 = 0
-a2 = 0
-#****************
-#*******    Cavlr 2ª ord    **********  Controlador em avanço por lugar das raizes para modelo de segunda ordem
-#controlName = "Controlador avanço - LR"
+    a1 = 0
+    a2 = 0
+elif controlUse == "cavlr2":
+    #****************
+    #*******    Cavlr 2ª ord    **********  Controlador em avanço por lugar das raizes para modelo de segunda ordem
+    controlName = "Controlador avanço - LR"
 
-#****************
-#*******    Cavrf 1ª ord    **********  Controlador em avanço por resposta em frequencia para modelo de primeira ordem
-#controlName = "Controlador avanço - RF"
-
-#****************
-#*******    Cavrf 2ª ord    **********  Controlador em avanço por resposta em frequencia para modelo de segunda ordem
-#controlName = "Controlador avanço - RF"
-
-#****************
-#*******    Catlr 1ª ord    **********  Controlador em atraso por lugar das raizes para modelo de primeira ordem
-#controlName = "Controlador atraso - LR"
-
-#****************
-#*******    Catlr 2ª ord    **********  Controlador em atraso por lugar das raizes para modelo de segunda ordem
-#controlName = "Controlador atraso - LR"
-
-#****************
-#*******    Catrf 1ª ord    **********  Controlador em atraso por resposta em frequencia para modelo de primeira ordem
-#controlName = "Controlador atraso - RF"
-
-#****************
-#*******    Catrf 2ª ord    **********  Controlador em atraso por resposta em frequencia para modelo de segunda ordem
-#controlName = "Controlador atraso - RF"
-
-#****************
-#*******   Cavatlr 1ª ord   **********  Controlador em avanço-atraso por lugar das raizes para modelo de primeira ordem
-#controlName = "Controlador avanço-atraso - LR"
-
-#****************
-#*******   Cavatlr 1ª ord   **********  Controlador em avanço-atraso por lugar das raizes para modelo de segunda ordem
-#controlName = "Controlador avanço-atraso - LR"
-
-#****************
-#*******   Cavatrf 1ª ord   **********  Controlador em avanço-atraso por resposta em frequencia para modelo de primeira ordem
-#controlName = "Controlador avanço-atraso - RF"
-
-#****************
-#*******   Cavatrf 1ª ord   **********  Controlador em avanço-atraso por resposta em frequencia para modelo de segunda ordem
-#controlName = "Controlador avanço-atraso - RF"
-
+elif controlUse == "cavrf1":
+    #****************
+    #*******    Cavrf 1ª ord    **********  Controlador em avanço por resposta em frequencia para modelo de primeira ordem
+    controlName = "Controlador avanço - RF"
+elif controlUse == "cavrf2":
+    #****************
+    #*******    Cavrf 2ª ord    **********  Controlador em avanço por resposta em frequencia para modelo de segunda ordem
+    controlName = "Controlador avanço - RF"
+elif controlUse == "catlr1":
+    #****************
+    #*******    Catlr 1ª ord    **********  Controlador em atraso por lugar das raizes para modelo de primeira ordem
+    controlName = "Controlador atraso - LR"
+elif controlUse == "catlr2":
+    #****************
+    #*******    Catlr 2ª ord    **********  Controlador em atraso por lugar das raizes para modelo de segunda ordem
+    controlName = "Controlador atraso - LR"
+elif controlUse == "catrf1":
+    #****************
+    #*******    Catrf 1ª ord    **********  Controlador em atraso por resposta em frequencia para modelo de primeira ordem
+    controlName = "Controlador atraso - RF"
+elif controlUse == "catrf2":
+    #****************
+    #*******    Catrf 2ª ord    **********  Controlador em atraso por resposta em frequencia para modelo de segunda ordem
+    controlName = "Controlador atraso - RF"
+elif controlUse == "cavatlr1":
+    #****************
+    #*******   Cavatlr 1ª ord   **********  Controlador em avanço-atraso por lugar das raizes para modelo de primeira ordem
+    controlName = "Controlador avanço-atraso - LR"
+elif controlUse == "cavatlr1":
+    #****************
+    #*******   Cavatlr 2ª ord   **********  Controlador em avanço-atraso por lugar das raizes para modelo de segunda ordem
+    controlName = "Controlador avanço-atraso - LR"
+elif controlUse == "cavatrf1":
+    #****************
+    #*******   Cavatrf 1ª ord   **********  Controlador em avanço-atraso por resposta em frequencia para modelo de primeira ordem
+    controlName = "Controlador avanço-atraso - RF"
+elif controlUse == "cavatrf2":
+    #****************
+    #*******   Cavatrf 2ª ord   **********  Controlador em avanço-atraso por resposta em frequencia para modelo de segunda ordem
+    controlName = "Controlador avanço-atraso - RF"
+else: 
+    controlName = "Sem controlador"
 
 ### FIM MUDANÇAS PERMITIDAS ###
 #-------------------------------#-------------------------------#-------------------------------#-------------------------------
@@ -173,8 +184,10 @@ for i in range(2,len(yr)):
     e[i]            = yr[i] - y[i]                                      # calcula o erro
     #------------------------------
     # malha de controle
-    #u[i] = b0* e[i] + b1*e[i-1] + b2*e[i-2] - a1*u[i-1] - a2*u[i-2]
-    u[i] = yr[i]
+    if controlName != "Sem controlador":
+        u[i] = b0* e[i] + b1*e[i-1] + b2*e[i-2] - a1*u[i-1] - a2*u[i-2]
+    else:
+        u[i] = yr[i]
         # garante que o sinal estara entre os valores acc pelo arduino
     if(u[i] > 1):
         u[i] = 1
@@ -213,14 +226,16 @@ yr                  = yr.astype(np.float64) * maxValue
 u                   = u.astype(np.float64) * maxValue
 y                   = y.astype(np.float64) * maxValue
 e                   = e.astype(np.float64) * maxValue
-logger.info(f"Gravando dados no csv")
+logger.info(f"Montando data frame")
 data                = pd.DataFrame()
 data.loc[:, 'yr']   = yr
 data.loc[:, 'u']    = u
 data.loc[:, 'y']    = y
 data.loc[0, 'fs']   = freq
 
-#data.write_csv()
+if srcFile != None:
+    logger.info(f"Salvando csv de dados...")
+    data.to_csv(srcFile, index=False)
 
 # Monta o grafico de resultado
 x                   = [i for i,a in enumerate(yr)]                   # Monta eixo x dos graficos
@@ -229,29 +244,31 @@ sizeImage           = (width/dpiImage,height/dpiImage)
 fig, axs            = plt.subplots(4, sharex=True, figsize=sizeImage, dpi=dpiImage)
 axs[0].plot(x,yr, color='blue', linewidth=4)
 axs[0].set_ylim(-0.5,5.5)
-axs[0].set_title('Referencia - yr(k)')
+axs[0].set_title('Referencia - yr(k)', fontsize=21)
 axs[0].grid(color='gray')
 
 axs[1].plot(x,u,'--', color='green', linewidth=4)
 axs[1].set_ylim(-0.5,5.5)
-axs[1].set_title('Saída controlador - u(k)')
+axs[1].set_title('Saída controlador - u(k)', fontsize=21)
 axs[1].grid(color='gray')
 
 axs[2].plot(x,y , color='red', linewidth=4,label='y')
 axs[2].plot(x,yr,'--', color='blue', linewidth=2, label='yr')
 axs[2].set_ylim(-0.5,5.5)
-axs[2].set_title('Dados Lidos - y(k)')
+axs[2].set_title('Dados Lidos - y(k)', fontsize=21)
 axs[2].legend(loc="upper right")
 axs[2].grid(color='gray')
 
 axs[3].plot(x,e, color='black', linewidth=4)
 axs[3].set_ylim(-5.5,5.5)
-axs[3].set_title('Erro - e(k)')
+axs[3].set_title('Erro - e(k)', fontsize=21)
 axs[3].grid(color='gray')
 
-plt.suptitle(controlName, fontsize=22)
+plt.suptitle(controlName, fontsize=26)
+plt.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=None, hspace=0.3)
 for ax in axs.flat:
-    ax.set(xlabel='Amostras (k)', ylabel='Voltagem (V)')
+    ax.set_ylabel('Voltagem (V)', fontsize=16)
+    ax.set_xlabel('Amostras (k)', fontsize=18)
 for ax in axs.flat:
     ax.label_outer()
 
