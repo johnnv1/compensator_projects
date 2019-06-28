@@ -224,16 +224,21 @@ def get_posPole(polesDominant, phiPolo_C, zero_c):
     d           = solve(eq_d, d_s)
     return (-1*(abs(d[d_s]) + abs(zero_c.real)))
 
-def get_KcByCM(polesDominant, polos_MA, zero_c, polo_c, Kp_MA):
-    h = []
+def get_KcByCM(polesDominant, polos_MA, zeros_MA, zero_c, polo_c, Kp_MA):
+    h = []      # lista com as distancias ate os polos
+    c = []      # lista com as distancias ate os zeros
+    # calcula distancias entre os polos e os polos dominantes
     for k in range(len(polos_MA)): 
         h.append(np.sqrt((abs(polesDominant[0].imag)-abs(polos_MA[k].imag))**2 + (abs(polesDominant[0].real) - abs(polos_MA[k].real))**2))
-
     h.append(np.sqrt((abs(polesDominant[0].imag) - abs(polo_c.imag))**2 + (abs(polesDominant[0].real) - abs(polo_c.real))**2))
 
-    c = np.sqrt((abs(polesDominant[0].imag) - abs(zero_c.imag))**2 + (abs(polesDominant[0].real) - abs(zero_c.real))**2)
+    # calcula distancias entre os zeros e os polos dominantes
+    for k in range(len(zeros_MA)): 
+        c.append(np.sqrt((abs(polesDominant[0].imag)-abs(zeros_MA[k].imag))**2 + (abs(polesDominant[0].real) - abs(zeros_MA[k].real))**2))
+    c.append(np.sqrt((abs(polesDominant[0].imag) - abs(zero_c.imag))**2 + (abs(polesDominant[0].real) - abs(zero_c.real))**2))
 
-    Kc = np.prod(h) / (c*Kp_MA) 
+    # calcula o ganho do controlador
+    Kc = np.prod(h) / (np.prod(c)*Kp_MA) 
 
     #print(f"Kc  = {Kc}")
     return Kc

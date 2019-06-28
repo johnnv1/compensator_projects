@@ -58,18 +58,18 @@ else:
     gaindc_MA = (Kp_MA*np.prod(-1*zeros_MA)) / (np.prod(-1*polos_MA))
 
     # Salva os dados de resposta em frequencia
-[mag_MA,phase_MA,wout_MA] = bode(G_MA,)
+#[mag_MA,phase_MA,wout_MA] = bode(G_MA,)
 
 #testControl(G_MA, 1, step, ramp, t, dist_p, dist_n)
 
 # Controladores
     # Controlador em avanço por lugar das raizes
-#Cavlr   = cavlr(e_esp, Mp_esp, Mp_folga, ts_esp, polos_MA, Kp_MA)
-#testControl(G_MA, Cavlr, step, ramp, t, dist_p, dist_n)
+Cavlr   = cavlr(e_esp, Mp_esp, Mp_folga, ts_esp, polos_MA, zeros_MA, Kp_MA)
+testControl(G_MA, Cavlr, step, ramp, t, dist_p, dist_n)
 
     # Controlador em atraso por lugar das raizes
-Catlr   = catlr(e_esp, Mp_esp, Mp_folga, ts_esp, polos_MA, Kp_MA, gaindc_MA, pos_polo_c=0.03)
-testControl(G_MA, Catlr, step, ramp, t, dist_p, dist_n)
+#Catlr   = catlr(e_esp, Mp_esp, Mp_folga, ts_esp, polos_MA, Kp_MA, gaindc_MA, pos_polo_c=0.03)
+#testControl(G_MA, Catlr, step, ramp, t, dist_p, dist_n)
 
     # Controlador em avanço-atraso por lugar das raizes
 #Cavatlr = cavatlr(e_esp, Mp_esp, Mp_folga, ts_esp, polos_MA, Kp_MA, gaindc_MA, pos_polo_c=0.02)

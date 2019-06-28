@@ -2,13 +2,14 @@
 
 from .misc import *
 
-def cavlr(e_esp, Mp_esp, Mp_folga, ts_esp, polos_MA, Kp_MA):
+def cavlr(e_esp, Mp_esp, Mp_folga, ts_esp, polos_MA, zeros_MA, Kp_MA):
     """
         e_esp       : erro esperado em regime permanente
         Mp_esp      : Overshoot máximo esperado
         Mp_folga    : Folga dada ao overshoot maximo esperado -> em casos de aproximações de plantas que não sejam de segunda ordem
         ts_esp      : Tempo de pico / tempo de subida desejado
-        polos_MA    : Polos da planta em MA -> obitido pela função poles(G_MA)
+        polos_MA    : Polos da planta em MA -> obitido pela função pole(G_MA)
+        zeros_MA    : Zeros da planta em MA -> obitido pela função zero(G_MA)
         Kp_MA       : Ganho em Malha Aberta da planta
     """
     # Determinando as especificações do compensador
@@ -50,10 +51,10 @@ def cavlr(e_esp, Mp_esp, Mp_folga, ts_esp, polos_MA, Kp_MA):
     print("*********************************************\n")
 
     # Determinando ganho do compensador, Kc, usando Condição de Modulo
-    Kc              = get_KcByCM(polesDominant, polos_MA, zero_c, polo_c, Kp_MA)
+    Kc              = get_KcByCM(polesDominant, polos_MA, zeros_MA, zero_c, polo_c, Kp_MA)
     print(f"Kc  = {Kc}")
     print("*********************************************\n")
-
+    Kc = 10 * Kc
     # Monta equação do controlador
     numC            = np.array([1, abs(zero_c)], dtype=float)
     denC            = np.array([1, abs(polo_c)], dtype=float)
