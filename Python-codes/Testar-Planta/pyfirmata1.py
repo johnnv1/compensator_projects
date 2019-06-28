@@ -107,6 +107,6 @@ for ax in axs.flat:
 
 for ax in axs.flat:
     ax.label_outer()
-plt.savefig(srcImage, format=formatImage)
-#plt.show()
+#plt.savefig(srcImage, format=formatImage)
+plt.show()
 
