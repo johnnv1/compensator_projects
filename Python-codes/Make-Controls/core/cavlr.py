@@ -54,7 +54,7 @@ def cavlr(e_esp, Mp_esp, Mp_folga, ts_esp, polos_MA, zeros_MA, Kp_MA):
     Kc              = get_KcByCM(polesDominant, polos_MA, zeros_MA, zero_c, polo_c, Kp_MA)
     print(f"Kc  = {Kc}")
     print("*********************************************\n")
-    Kc = 10 * Kc
+        
     # Monta equação do controlador
     numC            = np.array([1, abs(zero_c)], dtype=float)
     denC            = np.array([1, abs(polo_c)], dtype=float)

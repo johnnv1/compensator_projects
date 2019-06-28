@@ -21,9 +21,10 @@ import pandas as pd
 ### INICIO MUDANÇAS PERMITIDAS ###
 #-------------------------------
 # Controlador desejado
-controlUse      = "sc"                                                  # Sem controlador
+#controlUse      = "sc"                                                  # Sem controlador
 #controlUse       = "cavlr1"                                             #Cavlr 1ª ord    **********  Controlador em avanço por lugar das raizes para modelo de primeira ordem
-
+controlUse      = "catlr1"                                              #Catlr 1ª ord    **********  Controlador em atraso por lugar das raizes para modelo de primeira ordem
+ 
 #-------------------------------
 # Configuração do arduino
 """
@@ -90,19 +91,41 @@ if controlUse == "sc":
 elif controlUse == "cavlr1":
     #*******    Cavlr 1ª ord    **********  Controlador em avanço por lugar das raizes para modelo de primeira ordem
     controlName = "Controlador avanço - LR"
-    b0 = 0
-    b1 = 0
+    # Kc= Kc
+    # b0 = 2.244
+    # b1 = -1.964
+    # b2 = 0
+    # a1 = -0.4845
+    # a2 = 0
+    # Kc= Kc  # fs = 100
+    # b0 = 2.758
+    # b1 = -2.722
+    # b2 = 0
+    # a1 = -0.9329
+    # a2 = 0
+    # Kc= 5*Kc
+    #b0 = 11.23
+    #b1 = -9.823
+    #b2 = 0
+    #a1 = -0.4845
+    #a2 = 0
+    # Kc= 10*Kc
+    # b0 = 22.44
+    # b1 = -19.64
+    # b2 = 0
+    # a1 = -0.4845
+    # a2 = 0
+    # Kc= 10*Kc   # fs = 100
+    b0 = 27.58
+    b1 = -27.22
     b2 = 0
-
-    a1 = 0
+    a1 = -0.9329
     a2 = 0
 elif controlUse == "cavlr2":
-    #****************
     #*******    Cavlr 2ª ord    **********  Controlador em avanço por lugar das raizes para modelo de segunda ordem
     controlName = "Controlador avanço - LR"
 
 elif controlUse == "cavrf1":
-    #****************
     #*******    Cavrf 1ª ord    **********  Controlador em avanço por resposta em frequencia para modelo de primeira ordem
     controlName = "Controlador avanço - RF"
 elif controlUse == "cavrf2":
@@ -110,9 +133,13 @@ elif controlUse == "cavrf2":
     #*******    Cavrf 2ª ord    **********  Controlador em avanço por resposta em frequencia para modelo de segunda ordem
     controlName = "Controlador avanço - RF"
 elif controlUse == "catlr1":
-    #****************
     #*******    Catlr 1ª ord    **********  Controlador em atraso por lugar das raizes para modelo de primeira ordem
     controlName = "Controlador atraso - LR"
+    b0 = 0.825
+    b1 = -0.651
+    b2 = 0
+    a1 = -0.997
+    a2 = 0
 elif controlUse == "catlr2":
     #****************
     #*******    Catlr 2ª ord    **********  Controlador em atraso por lugar das raizes para modelo de segunda ordem
