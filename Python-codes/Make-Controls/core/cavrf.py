@@ -13,7 +13,6 @@ def cavrf(e_esp, Kp_MA, G_MA, MFd, MFseg, mag_MA, wout_MA):
     """
     # Determina o ganho do controlador
     Kc              = get_kc_rf(e_esp, Kp_MA)
-
     print(f"Kc = {Kc}")
     print("*********************************************\n")
 

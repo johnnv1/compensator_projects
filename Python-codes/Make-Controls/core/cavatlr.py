@@ -2,13 +2,14 @@
 
 from .misc import *
 
-def cavatlr(e_esp, Mp_esp, Mp_folga, ts_esp, polos_MA, Kp_MA, gaindc, pos_polo_c=0.02,zeroGain=1.2):
+def cavatlr(e_esp, Mp_esp, Mp_folga, ts_esp, polos_MA, zeros_MA, Kp_MA, gaindc, pos_polo_c=0.02,zeroGain=1.2):
     """
         e_esp       : erro esperado em regime permanente
         Mp_esp      : Overshoot máximo esperado
         Mp_folga    : Folga dada ao overshoot maximo esperado -> em casos de aproximações de plantas que não sejam de segunda ordem
         ts_esp      : Tempo de pico / tempo de subida desejado
-        polos_MA    : Polos da planta em MA -> obitido pela função poles(G_MA)
+        polos_MA    : Polos da planta em MA -> obitido pela função pole(G_MA)
+        zeros_MA    : Polos da planta em MA -> obitido pela função zero(G_MA)
         Kp_MA       : Ganho em Malha Aberta da planta
         gaindc      : Ganho da planta em MA quando s->0
         pos_polo_c  : Posição do polo do compensador desejado
@@ -59,7 +60,7 @@ def cavatlr(e_esp, Mp_esp, Mp_folga, ts_esp, polos_MA, Kp_MA, gaindc, pos_polo_c
 
 
     # Determinando ganho do compensador, Kc, usando Condição de Modulo
-    Kc              = get_KcByCM(polesDominant, polos_MA, zero_c, polo_c, Kp_MA)
+    Kc              = get_KcByCM(polesDominant, polos_MA,zeros_MA, zero_c, polo_c, Kp_MA)
     print(f"Kc  = {Kc}")
     print("*********************************************\n")
 

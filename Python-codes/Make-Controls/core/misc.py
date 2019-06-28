@@ -269,7 +269,7 @@ def get_Wm(Kc,a,mag_MA, wout_MA):
     magDb = 20 * np.log10(mag_MA)
     # % Lugar em que cruzar pela reta [-C_jwm -C_jwm] é referente a frequencia Wm
     # % encontra o ponto de cruzamento
-    magDbLoc  = np.where(magDb >= float((C_jwm)))[-1][-1]
+    magDbLoc  = np.where(magDb >= -float((C_jwm)))[-1][-1]
     Wm        = wout_MA[magDbLoc]
     #print(f"C(jWm) = {C_jwm}")
     #print(f"Wm = {Wm}")
