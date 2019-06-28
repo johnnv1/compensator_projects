@@ -2,9 +2,9 @@
 from core import *
 
 #   Examples of use
-# Catlr   = catlr(e_esp, Mp_esp, Mp_folga, ts_esp, polos_MA, Kp_MA, gaindc=63.08/47.93, pos_polo_c=-0.01)
-# Cavatlr = cavatlr(e_esp, Mp_esp, Mp_folga, ts_esp, polos_MA, Kp_MA, gaindc=63.08/47.93)
-# Cavlr   = cavlr(e_esp, Mp_esp, Mp_folga, ts_esp, polos_MA, Kp_MA)
+# Catlr   = catlr(e_esp, Mp_esp, Mp_folga, ts_esp, polos_MA ,zeros_MA, Kp_MA, gaindc=63.08/47.93, pos_polo_c=-0.01)
+# Cavatlr = cavatlr(e_esp, Mp_esp, Mp_folga, ts_esp, polos_MA ,zeros_MA, Kp_MA, gaindc=63.08/47.93)
+# Cavlr   = cavlr(e_esp, Mp_esp, Mp_folga, ts_esp, polos_MA ,zeros_MA, Kp_MA)
 
 
 # Especificações dos sinais de entrada para simulação

@@ -26,8 +26,13 @@ import pandas as pd
 #controlUse      = "catlr1"                                              #Catlr 1ª ord    **********  Controlador em atraso por lugar das raizes para modelo de primeira ordem
 #controlUse      = "cavatlr1"                                            #Cavatlr 1ª ord   **********  Controlador em avanço-atraso por lugar das raizes para modelo de primeira ordem
 #controlUse      = "cavrf1"                                              #Cavrf 1ª ord    **********  Controlador em avanço por resposta em frequencia para modelo de primeira ordem
-controlUse      = "catrf1"                                              #Catrf 1ª ord    **********  Controlador em atraso por resposta em frequencia para modelo de primeira ordem
-
+#controlUse      = "catrf1"                                              #Catrf 1ª ord    **********  Controlador em atraso por resposta em frequencia para modelo de primeira ordem
+#controlUse      = "cavlr2"                                              #Cavlr 2ª ord    **********  Controlador em avanço por lugar das raizes para modelo de segunda ordem
+#controlUse      = "catlr2"                                              #Catlr 2ª ord    **********  Controlador em atraso por lugar das raizes para modelo de segunda ordem
+#controlUse      = "cavatlr2"                                            #Cavatlr 2ª ord   **********  Controlador em avanço-atraso por lugar das raizes para modelo de segunda ordem
+#controlUse      = "cavrf2"                                              #Cavrf 2ª ord    **********  Controlador em avanço por resposta em frequencia para modelo de segunda ordem    
+controlUse      = "catrf2"                                              #Catrf 2ª ord    **********  Controlador em atraso por resposta em frequencia para modelo de segunda ordem
+         
 
 
 #-------------------------------
@@ -47,7 +52,7 @@ inPin           = 'a:0:i'                                               # Pino u
 #-------------------------------
 # dados para salvar imagem
 dpiImage        = 100                                                   # Dpi da imagem
-srcImage        = './../../Controles/PRBS-FS10/ord1/real/graph-'+controlUse+'-erroEspMenosBrusco_0.03.svg'    # Endereço e nome da imagem a ser salva, se setar como None não salva
+srcImage        = './../../Controles/PRBS-FS10/ord2/real/graph-'+controlUse+'.svg'    # Endereço e nome da imagem a ser salva, se setar como None não salva
 #srcImage        = None
 formatImage     = "svg"                                                 # Tipo de imagem a ser salva
 width           = 1920                                                  # Largura em px (pixels) da imagem salva
@@ -55,7 +60,7 @@ height          = 1080                                                  # Altura
 
 #-------------------------------
 # dados para salvar csv dos dados
-srcFile             = './../../Controles/PRBS-FS10/ord1/real/data-'+controlUse+'-erroEspMenosBrusco_0.03.csv'# Endereço e nome do csv a ser salva, se setar como None não salva
+srcFile             = './../../Controles/PRBS-FS10/ord2/real/data-'+controlUse+'.csv'# Endereço e nome do csv a ser salva, se setar como None não salva
 #srcFile             # None
 
 #-------------------------------
@@ -147,7 +152,24 @@ elif controlUse == "cavlr1":
 elif controlUse == "cavlr2":
     #*******    Cavlr 2ª ord    **********  Controlador em avanço por lugar das raizes para modelo de segunda ordem
     controlName = "Controlador avanço - LR"
-
+    # # Colocando zero em sigma *2
+    # b0 = 3.882
+    # b1 = -1.664
+    # b2 = 0
+    # a1 = -0.0007006
+    # a2 = 0
+    # Colocando zero em sigma *3
+    # b0 = 4.05
+    # b1 = -1.012
+    # b2 = 0
+    # a1 = -0.02119
+    # a2 = 0
+    # Colocando zero em sigma *4.5
+    b0 = 4.061
+    b1 = -0.214
+    b2 = 0
+    a1 = 0.0184
+    a2 = 0
 elif controlUse == "cavrf1":
     #*******    Cavrf 1ª ord    **********  Controlador em avanço por resposta em frequencia para modelo de primeira ordem
     controlName = "Controlador avanço - RF"
@@ -175,9 +197,13 @@ elif controlUse == "cavrf1":
     a1 = -0.6781
     a2 = 0
 elif controlUse == "cavrf2":
-    #****************
     #*******    Cavrf 2ª ord    **********  Controlador em avanço por resposta em frequencia para modelo de segunda ordem
     controlName = "Controlador avanço - RF"
+    b0 = 0.4338
+    b1 = -0.1238
+    b2 = 0
+    a1 = -0.9367
+    a2 = 0
 elif controlUse == "catlr1":
     #*******    Catlr 1ª ord    **********  Controlador em atraso por lugar das raizes para modelo de primeira ordem
     controlName = "Controlador atraso - LR"
@@ -187,9 +213,13 @@ elif controlUse == "catlr1":
     a1 = -0.997
     a2 = 0
 elif controlUse == "catlr2":
-    #****************
     #*******    Catlr 2ª ord    **********  Controlador em atraso por lugar das raizes para modelo de segunda ordem
     controlName = "Controlador atraso - LR"
+    b0 = 4.752
+    b1 = -3.447
+    b2 = 0
+    a1 = -0.996
+    a2 = 0
 elif controlUse == "catrf1":
     #*******    Catrf 1ª ord    **********  Controlador em atraso por resposta em frequencia para modelo de primeira ordem
     # b0 = 29.22
@@ -205,9 +235,13 @@ elif controlUse == "catrf1":
     a2 = 0
     controlName = "Controlador atraso - RF"
 elif controlUse == "catrf2":
-    #****************
     #*******    Catrf 2ª ord    **********  Controlador em atraso por resposta em frequencia para modelo de segunda ordem
     controlName = "Controlador atraso - RF"
+    b0 = 13.91
+    b1 = 7.194
+    b2 = 0
+    a1 = -0.3594
+    a2 = 0
 elif controlUse == "cavatlr1":
     #*******   Cavatlr 1ª ord   **********  Controlador em avanço-atraso por lugar das raizes para modelo de primeira ordem
     controlName = "Controlador avanço-atraso - LR"
@@ -231,6 +265,12 @@ elif controlUse == "cavatlr1":
 elif controlUse == "cavatlr2":
     #*******   Cavatlr 2ª ord   **********  Controlador em avanço-atraso por lugar das raizes para modelo de segunda ordem
     controlName = "Controlador avanço-atraso - LR"
+    # colocando o zero em sigma * 4.5
+    b0 = 4.355
+    b1 = -4.072
+    b2 = 0.2026
+    a1 = -0.9776
+    a2 = -0.01833
 elif controlUse == "cavatrf1":
     #****************
     #*******   Cavatrf 1ª ord   **********  Controlador em avanço-atraso por resposta em frequencia para modelo de primeira ordem
@@ -303,8 +343,10 @@ for i in range(2,len(yr)):
             contLevel += sizeStep
             logger.info(f"Já foram realizados {contLevel/sizeStep}/{qtdTrocas} trocas de niveis!")
     #------------------------------
-    time.sleep((1/freq)-(time.time() - t_ini_loop))                     # gera delay para esperar pelo período de amostragem
-
+    try:
+        time.sleep((1/freq)-(time.time() - t_ini_loop))                     # gera delay para esperar pelo período de amostragem
+    except:
+        pass
 pwmPin.write(0)                                                         # Desliga o motor
 t_end               = time.time()                                       # registra o tempo de término
 #--**----**----**----**----**----**----**----**----**----**--
