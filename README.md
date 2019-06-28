@@ -97,16 +97,24 @@ blablabla
 
 * Na pasta [Python-codes/](./Python-codes/) possui os códigos escritos em python baseados nos exercicios realizados em MATLAB durante as aulas. Estes códigos em python foram também uma tentativa de escrita de projetos de controladores o mais automatizado possivel. E foram utilizados para obter os controladores finais deste trabalho.
   * No arquivo [Trabalho_final_sistemas_de_controle.ipynb](./Trabalho_final_sistemas_de_controle.ipynb) foi realizado um jupyter notebook como rascunho deste projeto desenvolvido.
-  * No arquivo [makeControlOrd1.py](./makeControlOrd1.py) é desenvolvido os controladores realizados para a aproximação de **primeira** ordem da planta. 
-  * No arquivo [makeControlOrd2.py](./makeControlOrd2.py) é desenvolvido os controladores realizados para a aproximação de **segunda** ordem da planta.
-  * Na pasta [core/](./core/) encontra-se os arquivos com as funções utilizadas ao longo do trabalho
-    * Arquivo [cavlr.py](./core/cavlr.py) monta o controlador em avanço por lugares das raizes
-    * Arquivo [catlr.py](./core/catlr.py) monta o controlador em atraso por lugares das raizes
-    * Arquivo [cavatlr.py](./core/catavlr.py) monta o controlador em avanço e atraso por lugares das raizes
-    * Arquivo [cavrf.py](./core/cavrf.py) monta o controlador em avanço por resposta em frequencia
-    * Arquivo [catrf.py](./core/catrf.py) monta o controlador em atraso por resposta em frequencia
-    * Arquivo [cavatrf.py](./core/catavrf.py) monta o controlador em avanço e atraso por resposta em frequencia
-    * Arquivo [misc.py](./core/misc.py) possui uma miscelânea de funções utilizadas ao longo do projeto
+  * Na pasta [Make-Controls/](./Python-codes/Make-Controls/) há os arquivos utilizados para realizar os projetos dos controladores
+    * No arquivo [makeControlOrd1.py](./makeControlOrd1.py) é desenvolvido os controladores realizados para a aproximação de **primeira** ordem da planta. 
+    * No arquivo [makeControlOrd2.py](./makeControlOrd2.py) é desenvolvido os controladores realizados para a aproximação de **segunda** ordem da planta.
+    * Na pasta [core/](./Python-codes/Make-Controls/core/) encontra-se os arquivos com as funções utilizadas ao longo do trabalho
+      * Arquivo [cavlr.py](./core/cavlr.py) monta o controlador em avanço por lugares das raizes
+      * Arquivo [catlr.py](./core/catlr.py) monta o controlador em atraso por lugares das raizes
+      * Arquivo [cavatlr.py](./core/catavlr.py) monta o controlador em avanço e atraso por lugares das raizes
+      * Arquivo [cavrf.py](./core/cavrf.py) monta o controlador em avanço por resposta em frequencia
+      * Arquivo [catrf.py](./core/catrf.py) monta o controlador em atraso por resposta em frequencia
+      * Arquivo [cavatrf.py](./core/catavrf.py) monta o controlador em avanço e atraso por resposta em frequencia
+      * Arquivo [misc.py](./core/misc.py) possui uma miscelânea de funções utilizadas ao longo do projeto
+  * Na pasta [Testar-Planta/](./Python-codes/Testar-Planta/) há os arquivos utilizados para realizar testes na planta,conexão,escrita e leitura com o arduino.
+    * Arquivo [pyfirmata.py](./Python-codes/Testar-Planta/pyfirmata.py) possui um codigo de que escreve e le os dados do arduino, e depois os plota
+  * Na pasta [Use-Controls/](./Python-codes/Use-Controls/) há os arquivos utilizados para realizar testes de controladores elaborados na planta utilizando o arduino.
+    * Arquivo [testControl.py](./Python-codes/Use-Controls/testControl.py) é um código que realiza a implementação na planta real, utilizando o arduino com o pyfirmata. Dentro de seu código possui os dados comentados de todos os controladores implementados. Sendo assim, se desejado testar algum controle, basta descomentar.
+
 * Na pasta [MATLAB-codes/](./MATLAB-codes/) possui codigos matlabs que envolvem o trabalho
+
 * Na pasta [Dados-de-leitura/](./Dados-de-leitura/) possui arquivos *csv* com os dados lidos pelo arduino e esses dados plotados nos arquivos *svg*
+
 * Na pasta [Controles/](./Controles/) possui arquivos referente aos controladores projetados
