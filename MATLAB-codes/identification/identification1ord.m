@@ -2,13 +2,13 @@ close all
 
 %% CHANGE HERE
 freq = 10;
-mat = csvread('identification.csv');
+mat = csvread('PRBS-FS10.csv',1,0);
 
 %% program
 stepsize = 1/freq;
-N = length(u);
 u = mat(:,1);
 y = mat(:,2);
+N = length(u);
 time = N/freq;
 t = 0:stepsize:(time-stepsize);
 
@@ -27,7 +27,7 @@ for k= 2:N
 
     % Identificação via MQR
     % ----------------------------------------------
-    phi         = [-y(k-1); u(k-1)];   % Matriz de observação
+    phi         = [-y(k-1); u(k)];   % Matriz de observação
     yest2(k)    = phi'*theta;                            % Saída estimada
     eest        = (y(k)-yest2(k));                      % Erro de estimação
     theta       = theta+P*phi*eest;                     % Parâmetros estimados MQR
