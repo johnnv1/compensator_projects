@@ -22,21 +22,26 @@ from matplotlib import style
 dpiImage = 100
 srcImage = '../Dados-de-leitura/ExComportamento.svg'
 formatImage = "svg"
-sizeImage = (1920/dpiImage,1080/dpiImage)
+sizeImage = (1024/dpiImage,768/dpiImage)
 
 
 #-------------------------------
 # vetor de entrada (V)
-sinal = 4*np.ones(100)
-sinal = np.append(sinal,0*np.ones(100))
-sinal = np.append(sinal,5*np.ones(100))
-sinal = np.append(sinal,1*np.ones(100))
-sinal = np.append(sinal,2*np.ones(100))
+sinal = 4*np.ones(50)
+sinal = np.append(sinal,0*np.ones(50))
+sinal = np.append(sinal,5*np.ones(50))
+sinal = np.append(sinal,1*np.ones(50))
+sinal = np.append(sinal,2*np.ones(50))
 
 
 #-------------------------------
 # frequência de amostragem
 freq = 10
+
+
+#-------------------------------
+# nome do arquivo onde os dados serão salvos
+nomearq = "identification.csv"
 
 
 
@@ -49,7 +54,7 @@ print("Tempo total para executar as medições:",len(sinal)/freq)
 # configuration
 board = pyfirmata.Arduino('/dev/ttyACM0')
 entrada = board.get_pin('d:9:p')
-saida = board.get_pin('a:0:i')
+saida = board.get_pin('a:1:i')
 it = pyfirmata.util.Iterator(board)
 it.start()
 saida.enable_reporting()
