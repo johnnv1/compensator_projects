@@ -22,7 +22,7 @@ import pandas as pd
 #-------------------------------
 # Controlador desejado
 #controlUse      = "sc"                                                  # Sem controlador
-#controlUse      = "cavlr1"                                              #Cavlr 1ª ord    **********  Controlador em avanço por lugar das raizes para modelo de primeira ordem
+controlUse      = "cavlr1"                                              #Cavlr 1ª ord    **********  Controlador em avanço por lugar das raizes para modelo de primeira ordem
 #controlUse      = "catlr1"                                              #Catlr 1ª ord    **********  Controlador em atraso por lugar das raizes para modelo de primeira ordem
 #controlUse      = "cavatlr1"                                            #Cavatlr 1ª ord   **********  Controlador em avanço-atraso por lugar das raizes para modelo de primeira ordem
 #controlUse      = "cavrf1"                                              #Cavrf 1ª ord    **********  Controlador em avanço por resposta em frequencia para modelo de primeira ordem
@@ -31,7 +31,7 @@ import pandas as pd
 #controlUse      = "catlr2"                                              #Catlr 2ª ord    **********  Controlador em atraso por lugar das raizes para modelo de segunda ordem
 #controlUse      = "cavatlr2"                                            #Cavatlr 2ª ord   **********  Controlador em avanço-atraso por lugar das raizes para modelo de segunda ordem
 #controlUse      = "cavrf2"                                              #Cavrf 2ª ord    **********  Controlador em avanço por resposta em frequencia para modelo de segunda ordem    
-controlUse      = "catrf2"                                              #Catrf 2ª ord    **********  Controlador em atraso por resposta em frequencia para modelo de segunda ordem
+#controlUse      = "catrf2"                                              #Catrf 2ª ord    **********  Controlador em atraso por resposta em frequencia para modelo de segunda ordem
          
 
 
@@ -52,7 +52,7 @@ inPin           = 'a:0:i'                                               # Pino u
 #-------------------------------
 # dados para salvar imagem
 dpiImage        = 100                                                   # Dpi da imagem
-srcImage        = './../../Controles/PRBS-FS10/ord2/real/graph-'+controlUse+'.svg'    # Endereço e nome da imagem a ser salva, se setar como None não salva
+srcImage        = './../../Controles/PRBS-FS10/ord1/real/graph-'+controlUse+'-5Xkc-zero 2Xsigma-esp 0.1.svg'    # Endereço e nome da imagem a ser salva, se setar como None não salva
 #srcImage        = None
 formatImage     = "svg"                                                 # Tipo de imagem a ser salva
 width           = 1920                                                  # Largura em px (pixels) da imagem salva
@@ -60,7 +60,7 @@ height          = 1080                                                  # Altura
 
 #-------------------------------
 # dados para salvar csv dos dados
-srcFile             = './../../Controles/PRBS-FS10/ord2/real/data-'+controlUse+'.csv'# Endereço e nome do csv a ser salva, se setar como None não salva
+srcFile             = './../../Controles/PRBS-FS10/ord1/real/data-'+controlUse+'-5Xkc-zero 2Xsigma-esp 0.1.csv'# Endereço e nome do csv a ser salva, se setar como None não salva
 #srcFile             # None
 
 #-------------------------------
@@ -114,11 +114,11 @@ elif controlUse == "cavlr1":
     # a1 = -0.9329
     # a2 = 0
     # Kc= Kc e zero em 3/4*sigma
-    b0 = 1.13
-    b1 = -1.022
-    b2 = 0
-    a1 = -0.6931
-    a2 = 0
+    # b0 = 1.13
+    # b1 = -1.022
+    # b2 = 0
+    # a1 = -0.6931
+    # a2 = 0
     # Kc= 5*Kc
     #b0 = 11.23
     #b1 = -9.823
@@ -149,6 +149,12 @@ elif controlUse == "cavlr1":
     # b2 = 0
     # a1 = -0.8415
     # a2 = 0
+    # Kc= 5*Kc   # zero = 2*sigma # e_esp = 0.1
+    b0 = 6.151
+    b1 = -4.704
+    b2 = 0
+    a1 = -0.6033
+    a2 = 0
 elif controlUse == "cavlr2":
     #*******    Cavlr 2ª ord    **********  Controlador em avanço por lugar das raizes para modelo de segunda ordem
     controlName = "Controlador avanço - LR"
@@ -381,10 +387,12 @@ if srcFile != None:
 x                   = [i for i,a in enumerate(yr)]                   # Monta eixo x dos graficos
 
 sizeImage           = (width/dpiImage,height/dpiImage)
-fig, axs            = plt.subplots(4, sharex=True, figsize=sizeImage, dpi=dpiImage)
-axs[0].plot(x,yr, color='blue', linewidth=4)
+fig, axs            = plt.subplots(3, sharex=True, figsize=sizeImage, dpi=dpiImage)
+axs[0].plot(x,y , color='red', linewidth=4,label='y')
+axs[0].plot(x,yr,'--', color='blue', linewidth=2, label='yr')
 axs[0].set_ylim(-0.5,5.5)
-axs[0].set_title('Referencia - yr(k)', fontsize=21)
+axs[0].set_title('Dados Lidos - y(k)', fontsize=21)
+axs[0].legend(loc="upper right")
 axs[0].grid(color='gray')
 
 axs[1].plot(x,u,'--', color='green', linewidth=4)
@@ -392,17 +400,12 @@ axs[1].set_ylim(-0.5,5.5)
 axs[1].set_title('Saída controlador - u(k)', fontsize=21)
 axs[1].grid(color='gray')
 
-axs[2].plot(x,y , color='red', linewidth=4,label='y')
-axs[2].plot(x,yr,'--', color='blue', linewidth=2, label='yr')
-axs[2].set_ylim(-0.5,5.5)
-axs[2].set_title('Dados Lidos - y(k)', fontsize=21)
-axs[2].legend(loc="upper right")
-axs[2].grid(color='gray')
 
-axs[3].plot(x,e, color='black', linewidth=4)
-axs[3].set_ylim(-5.5,5.5)
-axs[3].set_title('Erro - e(k)', fontsize=21)
-axs[3].grid(color='gray')
+
+axs[2].plot(x,e, color='black', linewidth=4)
+axs[2].set_ylim(-5.5,5.5)
+axs[2].set_title('Erro - e(k)', fontsize=21)
+axs[2].grid(color='gray')
 
 plt.suptitle(controlName, fontsize=26)
 plt.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=None, hspace=0.3)

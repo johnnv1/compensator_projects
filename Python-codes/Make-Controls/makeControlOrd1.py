@@ -31,7 +31,7 @@ Denominador     = np.array([1, 1.663], dtype=float)
 ts_esp          = 3                        # tempo de estabelecimento
 Mp_esp          = 10                         # overshoot esperado em porcentagem
 Mp_folga        = 5                          # folga dada ao Mp, pq da aproximação de compensador para 2ª ordem
-e_esp           = 0.01                        # margem de fase de segurança, variavel
+e_esp           = 0.1                        # margem de fase de segurança, variavel
 
 MFd             = 50
 MFseg           = 5

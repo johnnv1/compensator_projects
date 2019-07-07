@@ -273,6 +273,69 @@ stepinfo:
 ev(∞) = 137.99583939483176\
 ep(∞) = 0.6935776022617139
 
+
+#### V6 do controlador em avanço 
+Colocando o zero em sigma *2, aumentando Kc = kc * 5 e aumentando o erro esperado para 0.1
+
+* ts_esp          = 3
+* Mp_esp          = 10
+* Mp_folga        = 5
+* e_esp           = 0.1
+
+ξ  = 0.7000000000000001\
+Wn = 1.90476190476190    rad/s\
+σ  = 1.33333333333333\
+Wd = 1.36027208162721
+
+
+Polo dominante 1 -> (-1.3333333333333335+1.3602720816272094j)\
+Polo dominante 2 -> (-1.3333333333333335-1.3602720816272094j)
+
+
+Zero controlador -> (-2.666666666666667+0j)
+
+
+φ0 = 1.333 rad\
+Angulo entre o zero do controlador e o polo dominante = ϴ =\
+        = 45.573º = 0.7954 rad\
+Angulo entre o polo do controlador e o polo dominante = φ1 =\
+        = 180 - (+ 76.377 ) + 45.573 =\
+        = 149.1962º = 2.604 rad\
+Polo controlador -> (-4.948196747978498+0j)
+
+
+Kc  = 6.770280232651751
+
+
+Controle de avanço = Kc * (s+z)/(s+p) = 
+        = 6.770280232651751 *  (s+z)/(s+p) = 
+(6.77 s + 18.05)/(s + 4.948)
+
+Malha Aberta
+C(s) * G(s) = 
+   (14.19 s + 37.84)/(s^2 + 6.611 s + 8.229)
+
+
+Malha Fechada
+Gmf = 
+  (14.19 s + 37.84)/(s^2 + 20.8 s + 46.07)
+
+
+stepinfo: 
+* RiseTime: 0.14736844238013397
+* SettlingTime: 0.46434962032985616
+* SettlingMin: 0.741365447408741
+* SettlingMax: 0.8213367542153285
+* Overshoot: 0.0
+* Undershoot: 0.0
+* Peak: 0.8213367542153285
+* PeakTime: 2.7777561120330914
+* SteadyStateValue: 0.8213367542153285
+
+ev(∞) = 35.60733248833475\
+ep(∞) = 0.17861547044854864
+
+
 *************
 ## Controlador em atraso por lugar das raizes
 **Especificações:**
